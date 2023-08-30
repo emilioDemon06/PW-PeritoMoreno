@@ -1,0 +1,44 @@
+/*###   Fuentes  ###*/
+	
+	@font-face {
+		font-family: "Lato-regular";
+		src: url("../fonts/Lato-Regular.ttf");
+	}
+	@font-face {
+		font-family: "Lato-bold";
+		src: url("../fonts/Lato-Bold.ttf");
+	}
+
+/*###   Colores  ###*/
+	:root{
+		--bg-primary: #4562ff;
+		--bg-secundary: #33c6ff;
+		--bg-third: #6B82FF;
+		--bg-fondo: #fff;
+		--col-letra: #3A3A3A;
+		--col-letra-blanca: #fff;
+		--col-toggle: #A6A6A6;
+	}
+
+/*###   Configuración  ###*/
+
+	body{
+		font-family: "Lato-regular", Arial;
+		background: var(--bg-fondo);
+		color: var(--col-letra);
+		font-size: 1rem;
+	}
+	.container-fluid{
+		width: 100%;
+		margin: auto;
+	}
+	.container{
+		width: 90%;
+		max-width: 1280px;
+		margin: auto;
+	}
+
+	::placeholder{
+		color: #B8B7B7;
+	}
+
