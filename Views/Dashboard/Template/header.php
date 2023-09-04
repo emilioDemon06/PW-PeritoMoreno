@@ -32,6 +32,9 @@
 
   <!-- Plugins-->
   <link href="<?= PLUGINS ?>/Noty/noty.css" rel="stylesheet">
+  <!--<link href="<?= PLUGINS ?>/DataTable/datatables.min.css" rel="stylesheet">-->
+
+  <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-1.13.6/af-2.6.0/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/r-2.5.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: May 30 2023 with Bootstrap v5.3.0
@@ -74,13 +77,13 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Kevin Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION["nombre"] ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6><?= $_SESSION["nombre"] ?></h6>
+              <span><?= $_SESSION["correo"]  ?></span>
             </li>
             <li>
               <hr class="dropdown-divider">

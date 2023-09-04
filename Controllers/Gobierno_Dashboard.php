@@ -8,7 +8,7 @@ class Gobierno_Dashboard extends Controllers{
         {
             //ejecutamos el metodo constructor de la clase controller de la ruta libraries/core
             Auth::noAuth();
-			Permisos::getPermisos(2);
+			Permisos::getPermisos(GOBIERNO);
             parent::__construct();
         }
 

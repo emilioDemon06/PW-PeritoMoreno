@@ -8,7 +8,7 @@ class Contacto_Dashboard extends Controllers{
         {
             //ejecutamos el metodo constructor de la clase controller de la ruta libraries/core
 			Auth::noAuth();
-            Permisos::getPermisos(3);
+            Permisos::getPermisos(CONTACTOS);
             parent::__construct();
         }
 

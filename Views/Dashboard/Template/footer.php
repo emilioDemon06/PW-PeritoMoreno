@@ -28,7 +28,15 @@
 
   <!-- plugins js -->
   <script src="<?= PLUGINS ?>/Noty/noty.min.js"></script>
-  
+  <!--<script src="<?= PLUGINS ?>/DataTable/JSZip-3.10.1/jszip.min.js"></script>
+  <script src="<?= PLUGINS ?>/DataTable/pdfmake-0.2.7/vfs_fonts.js"></script>
+  <script src="<?= PLUGINS ?>/DataTable/datatables.min.js"></script>-->
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-1.13.6/af-2.6.0/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/r-2.5.0/sl-1.7.0/datatables.min.js"></script>
+
   <!-- constante js -->
     <script>
       const base_url = "<?= base_url; ?>";

@@ -1,1 +1,0 @@
-<h1>Pagina no encontrada, intente de nuevo</h1>

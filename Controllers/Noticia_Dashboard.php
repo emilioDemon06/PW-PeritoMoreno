@@ -10,7 +10,7 @@ class Noticia_Dashboard extends Controllers
         {
             //ejecutamos el metodo constructor de la clase controller de la ruta libraries/core
             Auth::noAuth();
-			Permisos::getPermisos(1);
+			Permisos::getPermisos(NOTICIAS);
             parent::__construct();
         }
 	public function index()

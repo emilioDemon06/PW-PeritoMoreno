@@ -2,9 +2,6 @@
   
         <main id="main" class="main">
 
-
-
-          <?= debug($data); ?>
           <div class="pagetitle">
             <h1>Dashboard</h1>
             <nav>

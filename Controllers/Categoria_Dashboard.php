@@ -6,7 +6,7 @@ class Categoria_Dashboard extends Controllers{
 
 	public function __construct(){
 		Auth::noAuth();
-		Permisos::getPermisos(5);
+		Permisos::getPermisos(CATEGORIAS);
 		parent:: __construct();
 	}
 

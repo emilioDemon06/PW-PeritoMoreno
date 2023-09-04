@@ -46,6 +46,19 @@ define('FAVICON', ASSETS.'/favicon');
 define('PLUGINS', ASSETS.'/plugins');
 define('UPLOADS', ASSETS.'/uploads');
 
+/* #################################*/
+/* Constantes pagina de navegación  */
+/* #################################*/
+
+const DASHBOARD = 8;
+const NOTICIAS = 1;
+const GOBIERNO = 2;
+const CONTACTOS = 3;
+const USUARIOS = 4;
+const CATEGORIAS = 5;
+const HISTORIAS = 6;
+const PERMISOS = 7;
+
 
 
 /* ##########################################*/

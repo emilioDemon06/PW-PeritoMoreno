@@ -8,14 +8,15 @@ class Usuario_Dashboard extends Controllers{
         {
             //ejecutamos el metodo constructor de la clase controller de la ruta libraries/core
             Auth::noAuth();
-			Permisos::getPermisos(4);
+			Permisos::getPermisos(USUARIOS);
             parent::__construct();
         }
 
 
 	public function index(){
-		
+		$roles = Usuario_DashboardModel::listEqual("rol");
 
+		$data["roles"] = $roles;
 		$data["page_name"] = "Usuario";
 		$data["page_title"] = "Dashboard - Usuario";
 		$data['function_js'] = "Usuario.js";
@@ -25,6 +26,8 @@ class Usuario_Dashboard extends Controllers{
 			header('Location:'.base_url.'/Dashboard');
 		}
 	}
+
+	//metodo agregar Usuario
 	public function agregarUsers(){
 		$data = [];
 
@@ -39,6 +42,7 @@ class Usuario_Dashboard extends Controllers{
 			if ($val->isSuccess()) {
 				$passhash = hash("sha256", limpiar($_POST["password"]));
 				$data = [ 
+					"ID_Rol" => limpiar($_POST["rol"]),
 					"Nombre" => limpiar($_POST["nombre"]),
 					"Correo" => limpiar($_POST["correo"]),
 					"Password" => $passhash
@@ -51,17 +55,16 @@ class Usuario_Dashboard extends Controllers{
 			}else{
 				$data = ["error" => $val->getErrors()];
 			}
-
-
-
-		
 		}
 
 		echo json_encode($data,JSON_UNESCAPED_UNICODE);
-
-
 	}
 
+	//metodo mostrar Usuario
+	public function mostrarUser()
+	{
+		$arrJson = [];
 
-
+		echo json_encode($arrJson,JSON_UNESCAPED_UNICODE);
+	}
 }

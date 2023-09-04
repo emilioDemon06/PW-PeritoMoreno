@@ -8,7 +8,7 @@ class Permisos_Dashboard extends Controllers{
         {
             //ejecutamos el metodo constructor de la clase controller de la ruta libraries/core
 			Auth::noAuth();
-            Permisos::getPermisos(7);
+            Permisos::getPermisos(PERMISOS);
             parent::__construct();
         }
 

@@ -29,6 +29,8 @@
                 Ingresar
               </button>
 
+
+
             <!--
             ##############################
                   Modal Agregar Usuario
@@ -47,6 +49,18 @@
                     <h5 class="card-title">Agregue un Usuario:</h5>
                     <!-- General Form Elements -->
                       <form  method="POST" id="form_users" class="needs-validation" novalidate>
+
+
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Roles</label>
+                          <div class="col-sm-10">
+                            <select class="form-select" name="rol" aria-label="Default select example">
+                              <?php for($i = 0; $i < count($data["roles"]);$i++) : ?>
+                                <option value="<?= $data["roles"][$i]["ID"]; ?>"><?= $data["roles"][$i]["Nombre"]; ?></option>
+                              <?php endfor ?>
+                            </select>
+                          </div>
+                        </div>
 
 
 
@@ -112,20 +126,20 @@
 
 
               <!-- Table with stripped rows -->
-              <table class="table datatable">
+              <table id="tableUser" class="display table responsive nowrap">
                 <thead>
                   <tr>
                     <th scope="col"># ID</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Correo</th>
                     <th scope="col">Contraseña</th>
-                    <th scope="col">Rol</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Editar</th>
                     <th scope="col">Eliminar</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <!--<tr>
                     <th scope="row">1</th>
                     <td>Brandon Jacob</td>
                     <td>Designer</td>
@@ -137,59 +151,8 @@
                     <td>
                           <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
                     </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Bridie Kessler</td>
-                    <td>Developer</td>
-                    <td>35</td>
-                    <td>2014-12-05</td>
-                    <td>
-                          <button type="button" class="btn btn-success"><i class="bi bi-check-circle"></i></button>
-                    </td>
-                    <td>
-                          <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Ashleigh Langosh</td>
-                    <td>Finance</td>
-                    <td>45</td>
-                    <td>2011-08-12</td>
-                    <td>
-                          <button type="button" class="btn btn-success"><i class="bi bi-check-circle"></i></button>
-                    </td>
-                    <td>
-                          <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Angus Grady</td>
-                    <td>HR</td>
-                    <td>34</td>
-                    <td>2012-06-11</td>
-                    <td>
-                          <button type="button" class="btn btn-success"><i class="bi bi-check-circle"></i></button>
-                    </td>
-                    <td>
-                          <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Raheem Lehner</td>
-                    <td>Dynamic Division Officer</td>
-                    <td>47</td>
-                    <td>2011-04-19</td>
-                    <td>
-                          <button type="button" class="btn btn-success"><i class="bi bi-check-circle"></i></button>
-                    </td>
-                    <td>
-                          <button type="button" class="btn btn-danger"><i class="bi bi-exclamation-octagon"></i></button>
-                    </td>
-                  </tr>
+                  </tr>-->
+                 
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->

@@ -44,8 +44,7 @@ class Login extends Controllers
 					$_SESSION['correo'] = $usuario['Correo'];
 					$_SESSION['login'] = true;
 
-
-
+					Auth::sessionUser($_SESSION['iduser']);
 					$data = ['status' => true, "msg" => "Ha ingresado correctamente."];
 				}
 				
