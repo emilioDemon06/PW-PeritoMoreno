@@ -22,7 +22,7 @@ class Contacto_Dashboard extends Controllers{
 		$data["page_name"] = "Contactos";
 		$data["page_title"] = "Dashboard - Contactos";
 		$data['function_js'] = "Contacto.js";
-		$this->Views->getView($this,'contacto',$data);
+		$this->Views->getView($this,'index',$data);
 
 	}
 

@@ -2,7 +2,7 @@
 
 
 
-class Permisos_Dashboard extends Controllers{
+class Permiso_Dashboard extends Controllers{
 
 	public function __construct() 
         {
@@ -19,10 +19,10 @@ class Permisos_Dashboard extends Controllers{
 			header('Location:'.base_url.'/Dashboard');
 		}
 
-		$data["page_name"] = "Permisos Y Roles";
-		$data["page_title"] = "Dashboard - Permisos Y Roles";
+		$data["page_name"] = "Permisos";
+		$data["page_title"] = "Dashboard - Permisos";
 		$data['function_js'] = "Permisos.js";
-		$this->Views->getView($this,'permisos',$data);
+		$this->Views->getView($this,'index',$data);
 
 	}
 

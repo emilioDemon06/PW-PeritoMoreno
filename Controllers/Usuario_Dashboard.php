@@ -14,26 +14,37 @@ class Usuario_Dashboard extends Controllers{
 
 
 	public function index(){
-		$roles = Usuario_DashboardModel::listEqual("rol");
 
-		$data["roles"] = $roles;
+		if (empty($_SESSION['permisosMod']['r'])) {
+			header('Location:'.base_url.'/Dashboard');
+		}
+
 		$data["page_name"] = "Usuario";
 		$data["page_title"] = "Dashboard - Usuario";
 		$data['function_js'] = "Usuario.js";
 		$this->Views->getView($this,'index',$data);
 
-		if (empty($_SESSION['permisosMod']['r'])) {
-			header('Location:'.base_url.'/Dashboard');
-		}
 	}
 
 	//metodo agregar Usuario
-	public function agregarUsers(){
+	public function nuevo(){
+		$roles = Usuario_DashboardModel::roles();
+
+
+		Alertas::newAlert('Guardar','success');
+
+		$data['roles'] = $roles;
+		$data["page_principal"] = "Usuario";
+		$data["page_name"] = "Nuevo";
+		$data["page_title"] = "Usuario - Nuevo";
+		$data['function_js'] = "Usuario.js";
+		$this->Views->getView($this,'nuevo',$data);
+		
+
+
 		$data = [];
 
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			//$data = $errores;			
-			//$errores = Usuario_DashboardModel::validar();
 			
 			$val = new Validations();
 			$val->name('nombre')->value($_POST['nombre'])->max(100)->required();
@@ -58,13 +69,40 @@ class Usuario_Dashboard extends Controllers{
 		}
 
 		echo json_encode($data,JSON_UNESCAPED_UNICODE);
+
 	}
 
 	//metodo mostrar Usuario
 	public function mostrarUser()
 	{
-		$arrJson = [];
+		$users = Usuario_DashboardModel::all();
+
+		if (empty($users)) {
+			$arrJson = ["msg" => "No se encontraron registros"];
+		}else{
+
+			for ($i=0; $i < count($users); $i++) { 
+				if ($users[$i]['is_activo'] == 1) {
+					$users[$i]['is_activo'] = "<span class='badge bg-success text-wrap'>Activo</span>";
+				}else{
+					$users[$i]['is_activo'] = "<span class='badge bg-danger text-wrap'>Inactivo</span>";
+				}
+			}
+
+			$arrJson = $users;
+		}
 
 		echo json_encode($arrJson,JSON_UNESCAPED_UNICODE);
+	}
+	//metodo editar Usuario
+	public function editar(){
+		$roles = Usuario_DashboardModel::roles();
+
+		$data['roles'] = $roles;
+		$data["page_principal"] = "Usuario";
+		$data["page_name"] = "Editar";
+		$data["page_title"] = "Usuario - Editar";
+		$data['function_js'] = "Usuario.js";
+		$this->Views->getView($this,'editar',$data);
 	}
 }

@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="<?= SITE_LANG ?>">
 
 <head>
@@ -18,15 +17,15 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="<?= CSS ?>/bootstrap.min.css" rel="stylesheet">
+  <!--<link href="<?= CSS ?>/bootstrap.min.css" rel="stylesheet">-->
   <link href="<?= CSS ?>/bootstrap-icons.css" rel="stylesheet">
-  <link href="<?= CSS ?>/boxicons/boxicons.min.css" rel="stylesheet">
+  <!--<link href="<?= CSS ?>/boxicons/boxicons.min.css" rel="stylesheet">-->
   <link href="<?= CSS ?>/quill/quill.snow.css" rel="stylesheet">
   <link href="<?= CSS ?>/quill/quill.bubble.css" rel="stylesheet">
-  <link href="<?= CSS ?>/remixicon/remixicon.css" rel="stylesheet">
+  <!--<link href="<?= CSS ?>/remixicon/remixicon.css" rel="stylesheet">-->
   <!-- Template Main CSS File -->
+  <!--<link href="<?= CSS ?>/simple-datatables/style.css" rel="stylesheet">-->
   <link href="<?= ASSETS ?>/app/css/style-dashboard.css" rel="stylesheet">
-  <link href="<?= CSS ?>/simple-datatables/style.css" rel="stylesheet">
   
 
 
@@ -34,7 +33,8 @@
   <link href="<?= PLUGINS ?>/Noty/noty.css" rel="stylesheet">
   <!--<link href="<?= PLUGINS ?>/DataTable/datatables.min.css" rel="stylesheet">-->
 
-  <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-1.13.6/af-2.6.0/b-2.4.2/b-html5-2.4.2/b-print-2.4.2/r-2.5.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-1.13.6/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/cr-1.7.0/date-1.5.1/r-2.5.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: May 30 2023 with Bootstrap v5.3.0
@@ -90,7 +90,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="<?= base_url ?>/Dashboard">
                 <i class="bi bi-person"></i>
                 <span>Mi Perfil</span>
               </a>
@@ -99,12 +99,6 @@
               <hr class="dropdown-divider">
             </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Configuración</span>
-              </a>
-            </li>
             <li>
               <hr class="dropdown-divider">
             </li>

@@ -58,6 +58,6 @@ class Noticia_Dashboard extends Controllers
 		$data["page_title"] = "Dashboard - Noticia";
 		$data['function_js'] = "Noticia.js";
 		$data['noticias'] = $noticias;
-		$this->Views->getView($this,'noticia',$data);
+		$this->Views->getView($this,'index',$data);
 	}
 }

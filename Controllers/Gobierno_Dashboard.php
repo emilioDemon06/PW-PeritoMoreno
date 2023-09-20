@@ -13,6 +13,7 @@ class Gobierno_Dashboard extends Controllers{
         }
 
 	public function index(){
+		
 		if (empty($_SESSION['permisosMod']['r'])) {
 		
 			header('Location:'.base_url.'/Dashboard');
@@ -21,7 +22,7 @@ class Gobierno_Dashboard extends Controllers{
 		$data["page_name"] = "Gobierno";
 		$data["page_title"] = "Dashboard - Gobierno";
 		$data['function_js'] = "Gobierno.js";
-		$this->Views->getView($this,'gobierno',$data);
+		$this->Views->getView($this,'index',$data);
 
 	}
 

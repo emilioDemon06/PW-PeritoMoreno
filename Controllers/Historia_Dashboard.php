@@ -22,7 +22,7 @@ class Historia_Dashboard extends Controllers{
 		$data["page_name"] = "Historia";
 		$data["page_title"] = "Dashboard - Historia";
 		$data['function_js'] = "Historia.js";
-		$this->Views->getView($this,'historia',$data);
+		$this->Views->getView($this,'index',$data);
 
 	}
 

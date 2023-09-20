@@ -75,7 +75,7 @@ class Permisos
 	}
 	/**
 	 *
-	 * dimanizar y traer los permisos del menu de navegaciion
+	 * dimanizar y traer los permisos del menu de navegacion
 	 *
 	 */
 	public static function nav(){
@@ -92,6 +92,127 @@ class Permisos
       				 </li>";
 			}
 		}
+	}
+	/**
+	 *
+	 * dimanizar y traer los permisos del menu de navegacion y sus submenues
+	 *
+	 */
+	public static function getMenu(){
+		$consulta = DB::SQL("SELECT * FROM pagina");
+		$menus = [];
+
+		foreach ($consulta as $index => $row) {
+			if ($row['ID_Menu']) {
+				$id = $row['ID_Menu'];
+
+				$menus['menu_'.$id]['submenu'][] = [
+					'id' => $row['ID'],
+					'titulo' => $row['Titulo'],
+					'page' => $row['Page'],
+					'icono' => $row['Icono']
+				];
+			}else{
+				$id = $row['ID'];
+
+				$menus["menu_".$id] = [
+					'id' => $row['ID'],
+					'titulo' => $row['Titulo'],
+					'page' => $row['Page'],
+					'icono' => $row['Icono']
+				];
+			}
+		}
+
+		return $menus;
+	}
+
+	public static function mostrarMenu()
+	{
+		$menus = self::getMenu();
+
+		if(!$menus){
+			return "No existe ningun menú en la base de datos";
+		}
+		$html = "";
+		$completo = "_Dashboard";
+		foreach ($menus as $menu) 
+		{
+			if (isset($menu["submenu"]))
+			{
+				if (!empty($_SESSION['permisos'][$menu["id"]]['r']))
+				{
+					if ($menu["page"])
+					{
+						$html .= '<li class="nav-item">
+					        		<a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="'.base_url.''.$menu['page'].''.$completo.'">
+					          		<i class="'.$menu['icono'].'"></i><span> '.$menu['titulo'].' </span><i class="bi bi-chevron-down ms-auto"></i>
+					        		</a>';
+					}else
+					{
+						$html .= '<li class="nav-item">
+					        		<a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+					          		<i class="'.$menu['icono'].'"></i><span> '.$menu['titulo'].' </span><i class="bi bi-chevron-down ms-auto"></i>
+					        		</a>';
+					}
+
+					if (is_array($menu["submenu"])) 
+					{
+						$html .= '<ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">';
+
+						foreach ($menu["submenu"] as $submenu)
+						{
+							if ($submenu["page"])
+							{
+								$html .= '<li>
+					            			<a href="'.base_url.'/'.$submenu['page'].''.$completo.'">
+					              				<i class="'.$submenu['icono'].'"></i><span>'.$submenu['titulo'].'</span>
+					            			</a>
+					          			</li>';
+							}else
+							{
+
+								$html .= '<li>
+					            			<a href="#">
+					              				<i class="'.$submenu['icono'].'"></i><span>'.$submenu['titulo'].'</span>
+					            			</a>
+					          			</li>';
+							}
+						}
+						$html .= '</ul>';
+						$html .= '</li>';
+					}
+
+
+
+				}
+
+
+			}else
+			{
+				if (!empty($_SESSION['permisos'][$menu["id"]]['r']))
+				{
+					if ($menu["page"]) 
+					{
+						$html .= '<li class="nav-item">
+					       			 <a class="nav-link collapsed" href="'.base_url.'/'.$menu['page'].''.$completo.'">
+					          			<i class="'.$menu['icono'].'"></i>
+					          			<span>'.$menu['titulo'].'</span>
+					        		</a>
+					      		</li>';
+					}else
+					{
+						$html .= '<li class="nav-item">
+					       			 <a class="nav-link collapsed">
+					          			<i class="'.$menu['icono'].'"></i>
+					          			<span>'.$menu['titulo'].'</span>
+					        		</a>
+					      		</li>';
+					}
+				}
+			}
+		}
+		return $html;
 	}
 	/**
 	 *

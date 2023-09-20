@@ -1,5 +1,7 @@
 
 let tableUsuario;
+let formNuevo = document.querySelector("#form_nuevo");
+let resp = document.getElementById("respuesta");
 
 document.addEventListener("DOMContentLoaded", function () {
 	tableUsuario = new DataTable("#tableUser",{
@@ -19,9 +21,20 @@ document.addEventListener("DOMContentLoaded", function () {
 		},
 		//datos desde el servidor
 		columns:[
-			{data:"nombre"}
+			{data:"ID"},
+			{data:"NombreUser"},
+			{data:"NombreRol"},
+			{data:"Correo"},
+			{data:"is_activo"},
+			{
+				defaultContent: "<button type='button' class='editarfnt btn btn-warning btn-sm me-1' >Editar</button><button type='button' class='eliminarfnt btn btn-danger btn-sm'>Eliminar</button>"
+			},
+			
 		],
-
+		//paginación
+		lengthMenu:[5,10,25],
+		iDisplayLength:5,
+		pagingType: 'full_numbers',
 		//ocultar columnas
 		columnDefs:[
 			{
@@ -30,42 +43,60 @@ document.addEventListener("DOMContentLoaded", function () {
 			serchable:false,
 			}
 		],
+		//ordenar por nombre 
+		order:[1,"asc"],
 		//mostrar botones de exportacion
 		dom: "lBfrtip",
 		buttons:[
 			{
 				extend:"copyHtml5",
-				text:"copiar",
+				text:"Copiar",
 				titleAttr: "Copiar",
-				className: "btn btn-primary",
+				className: "btn btn-info",
 			},
 			{
 				extend:"excelHtml5",
-				text:"exportar",
+				text:"Excel",
 				titleAttr: "Exportar a Excel",
-				className: "btn btn-warning",
+				className: "btn btn-success",
+			},
+			{
+				extend:"pdfHtml5",
+				text:"PDF",
+				titleAttr: "Exportar a PDF",
+				className: "btn btn-danger",
 			},
 		],
-	})
+		
+	});
+
+	nuevo();
+
 }, false )
 
+//boton editar
+$("#tableUser tbody").on("click", "button.editarfnt", async function(){
+		let data_table = tableUsuario.row($(this).parents("tr")).data();
+		let idUser = data_table.ID;
+		window.location.href = `${base_url}/Usuario_Dashboard/editar/${idUser}`;
+	}
+)
 
 
 /*document.querySelector("#form_users").addEventListener("submit",function(e) {
 	e.preventDefault();
-	agregarUsers();
-});
+	nuevo();
+});*/
 	
 
 	
 
-async function agregarUsers(){
+async function nuevo(){
 		
-		let formUsers = new FormData(document.querySelector("#form_users"));
-		let resp = document.getElementById("respuesta");
+		let formUsers = new FormData(formNuevo);
 	try
 	{
-		const url = `${base_url}/Usuario_Dashboard/agregarUsers`;
+		const url = `${base_url}/Usuario_Dashboard/nuevo`;
 		const respuesta = await fetch(url,{
 			method: "POST",
 			body: formUsers,
@@ -89,4 +120,4 @@ async function agregarUsers(){
 	}
 	
 	
-}*/
+}

@@ -43,11 +43,24 @@ class Auth
 		$_SESSION = [];
 		header('Location:'.base_url.'/Login');
 	}
-
+	/**
+	 *
+	 * @void sessiones // cerrar session en el index por seguridad del dashboard
+	 *
+	 */
 	public static function logoutHome(){
 		if (isset($_SESSION['login'])) {
 			session_destroy();
 			$_SESSION = [];
 		}
 	}
+
+	/**
+	 *
+	 * @void caducacion de la session
+	 *
+	 */
+	
+	
+
 }
