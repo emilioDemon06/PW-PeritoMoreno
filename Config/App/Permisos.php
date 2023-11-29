@@ -75,7 +75,7 @@ class Permisos
 	}
 	/**
 	 *
-	 * dimanizar y traer los permisos del menu de navegacion
+	 * dimanizar y traer los permisos del menu de navegacion sin submenu
 	 *
 	 */
 	public static function nav(){
@@ -110,7 +110,8 @@ class Permisos
 					'id' => $row['ID'],
 					'titulo' => $row['Titulo'],
 					'page' => $row['Page'],
-					'icono' => $row['Icono']
+					'icono' => $row['Icono'],
+					'submenu_desplegable' => $row['Submenu_Des']
 				];
 			}else{
 				$id = $row['ID'];
@@ -119,7 +120,9 @@ class Permisos
 					'id' => $row['ID'],
 					'titulo' => $row['Titulo'],
 					'page' => $row['Page'],
-					'icono' => $row['Icono']
+					'icono' => $row['Icono'],
+					'submenu_desplegable' => $row['Submenu_Des'] 
+					/*sirve para desplegar el submenu por si solo*/
 				];
 			}
 		}
@@ -144,21 +147,21 @@ class Permisos
 				{
 					if ($menu["page"])
 					{
-						$html .= '<li class="nav-item">
-					        		<a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="'.base_url.''.$menu['page'].''.$completo.'">
+						$html .= '<li class="nav-item active">
+					        		<a class="nav-link collapsed" data-bs-target="#'.$menu['submenu_desplegable'].'" data-bs-toggle="collapse" href="'.base_url.''.$menu['page'].''.$completo.'">
 					          		<i class="'.$menu['icono'].'"></i><span> '.$menu['titulo'].' </span><i class="bi bi-chevron-down ms-auto"></i>
 					        		</a>';
 					}else
 					{
 						$html .= '<li class="nav-item">
-					        		<a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+					        		<a class="nav-link collapsed" data-bs-target="#'.$menu['submenu_desplegable'].'" data-bs-toggle="collapse" href="#">
 					          		<i class="'.$menu['icono'].'"></i><span> '.$menu['titulo'].' </span><i class="bi bi-chevron-down ms-auto"></i>
 					        		</a>';
 					}
 
 					if (is_array($menu["submenu"])) 
 					{
-						$html .= '<ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">';
+						$html .= '<ul id="'.$menu['submenu_desplegable'].'" class="nav-content collapse " data-bs-parent="#sidebar-nav">';
 
 						foreach ($menu["submenu"] as $submenu)
 						{
@@ -216,26 +219,26 @@ class Permisos
 	}
 	/**
 	 *
-	 * permiso crear
+	 * permisos crear, leer, actualizar y eliminar
 	 *
 	 */
 	public static function create(){
-		if (!empty($_SESSION['permisosPag']['c'])) {
+		if (!empty($_SESSION['permisosMod']['c'])) {
 			return true;
 		}
 	}
 	public static function read(){
-		if (!empty($_SESSION['permisosPag']['r'])) {
+		if (!empty($_SESSION['permisosMod']['r'])) {
 			return true;
 		}
 	}
 	public static function updater(){
-		if (!empty($_SESSION['permisosPag']['u'])) {
+		if (!empty($_SESSION['permisosMod']['u'])) {
 			return true;
 		}
 	}
 	public static function deleter(){
-		if (!empty($_SESSION['permisosPag']['d'])) {
+		if (!empty($_SESSION['permisosMod']['d'])) {
 			return true;
 		}
 	}

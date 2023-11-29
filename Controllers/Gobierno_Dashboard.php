@@ -8,7 +8,7 @@ class Gobierno_Dashboard extends Controllers{
         {
             //ejecutamos el metodo constructor de la clase controller de la ruta libraries/core
             Auth::noAuth();
-			Permisos::getPermisos(GOBIERNO);
+			Permisos::getPermisos(EJECUTIVO);
             parent::__construct();
         }
 
@@ -19,8 +19,8 @@ class Gobierno_Dashboard extends Controllers{
 			header('Location:'.base_url.'/Dashboard');
 		}
 		
-		$data["page_name"] = "Gobierno";
-		$data["page_title"] = "Dashboard - Gobierno";
+		$data["page_name"] = "Ejecutivo Municipal";
+		$data["page_title"] = "Dashboard - Ejecutivo";
 		$data['function_js'] = "Gobierno.js";
 		$this->Views->getView($this,'index',$data);
 

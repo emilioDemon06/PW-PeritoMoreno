@@ -19,6 +19,9 @@ class Contacto_Dashboard extends Controllers{
 			header('Location:'.base_url.'/Dashboard');
 		}
 
+		$usersInfo = Contacto_DashboardModel::infoUsers();
+
+		$data['usersInfo'] = to_obj($usersInfo);
 		$data["page_name"] = "Contactos";
 		$data["page_title"] = "Dashboard - Contactos";
 		$data['function_js'] = "Contacto.js";

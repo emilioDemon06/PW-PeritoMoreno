@@ -7,7 +7,11 @@
 class Views 
 {
 	
-	public function getView($Controller,$View,$data=""){
+	public function getView($Controller,$View,$data=[]){
+
+		foreach ($data as $key => $value) {
+			$$key = $value;
+		}
 
 		$Controller = get_class($Controller);
 

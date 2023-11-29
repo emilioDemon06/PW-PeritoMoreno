@@ -2,76 +2,177 @@
 
 
 
-class Usuario_Dashboard extends Controllers{
+class Usuario_Dashboard extends Controllers
+{
 
-	public function __construct() 
-        {
-            //ejecutamos el metodo constructor de la clase controller de la ruta libraries/core
-            Auth::noAuth();
-			Permisos::getPermisos(USUARIOS);
-            parent::__construct();
-        }
+	public function __construct()
+	{
+		//ejecutamos el metodo constructor de la clase controller de la ruta libraries/core
+		Auth::noAuth();
+		Permisos::getPermisos(USUARIO);
+		parent::__construct();
+	}
 
 
-	public function index(){
+	public function index()
+	{
 
-		if (empty($_SESSION['permisosMod']['r'])) {
-			header('Location:'.base_url.'/Dashboard');
+		if (Permisos::read()) {
+			$roles = Usuario_DashboardModel::roles();
+			$data['roles'] = $roles;
+			$data["page_name"] = "Usuario";
+			$data["page_title"] = "Dashboard - Usuario";
+			$data['function_js'] = "Usuario.js";
+			$this->Views->getView($this, 'index', $data);
+		} else {
+			header('Location:' . base_url . '/Dashboard');
 		}
-
-		$data["page_name"] = "Usuario";
-		$data["page_title"] = "Dashboard - Usuario";
-		$data['function_js'] = "Usuario.js";
-		$this->Views->getView($this,'index',$data);
-
 	}
 
 	//metodo agregar Usuario
-	public function nuevo(){
-		$roles = Usuario_DashboardModel::roles();
+	public function nuevo()
+	{
 
+		if (Permisos::read()) {
 
-		Alertas::newAlert('Guardar','success');
-
-		$data['roles'] = $roles;
-		$data["page_principal"] = "Usuario";
-		$data["page_name"] = "Nuevo";
-		$data["page_title"] = "Usuario - Nuevo";
-		$data['function_js'] = "Usuario.js";
-		$this->Views->getView($this,'nuevo',$data);
-		
-
-
-		$data = [];
-
-		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			
-			$val = new Validations();
-			$val->name('nombre')->value($_POST['nombre'])->max(100)->required();
-			$val->name('correo')->value($_POST['correo'])->pattern('email')->required();
-			$val->name('contraseña')->value($_POST['password'])->min(6)->max(25)->required();
-			if ($val->isSuccess()) {
-				$passhash = hash("sha256", limpiar($_POST["password"]));
-				$data = [ 
-					"ID_Rol" => limpiar($_POST["rol"]),
-					"Nombre" => limpiar($_POST["nombre"]),
-					"Correo" => limpiar($_POST["correo"]),
-					"Password" => $passhash
-				];
-				
-				$idInsert = Usuario_DashboardModel::insert("usuario",$data);
-				$data = ['status' => true, "msg" => "Se guardo correctamente."];
-				
-				
-			}else{
-				$data = ["error" => $val->getErrors()];
-			}
+			$roles = Usuario_DashboardModel::roles();
+			$data['roles'] = to_obj($roles);
+			$data["page_principal"] = "Usuario";
+			$data["page_name"] = "Nuevo";
+			$data["page_title"] = "Usuario - Nuevo";
+			$data['function_js'] = "Usuario.js";
+			$this->Views->getView($this, 'nuevo', $data);
+		} else {
+			header('Location:' . base_url . '/Usuario_Dashboard');
 		}
-
-		echo json_encode($data,JSON_UNESCAPED_UNICODE);
-
 	}
 
+	//metodo editar Usuario
+	public function editar($id)
+	{
+		if (Permisos::read()) {
+
+			$roles = Usuario_DashboardModel::roles();
+			$idUser = Sanitations::san_entero($id);
+
+			if ($idUser > 0) {
+				$usuario = Usuario_DashboardModel::oneUser($idUser);
+
+				$data["usuario"] = to_obj($usuario);
+				$data['roles'] = to_obj($roles);
+				$data["page_principal"] = "Usuario";
+				$data["page_name"] = "Editar";
+				$data["page_title"] = "Editando usuario " . $usuario["NombreUser"];
+				$data['function_js'] = "Usuario.js";
+				$this->Views->getView($this, 'editar', $data);
+			}
+		} else {
+			Alertas::warning("Usted no tiene permiso para realizar esta acción");
+			header('Location:' . base_url . '/Usuario_Dashboard');
+		}
+	}
+	//metodo store
+	public function store()
+	{
+		//si la info viene por el metodo post
+		if ($_SERVER['REQUEST_METHOD'] == "POST") {
+			if (empty($_POST['id'])) {
+				//guardar
+				if (Permisos::create()) {
+					try {
+
+						$val = new Validations();
+						$val->name('rol')->value(limpiar($_POST['rol']))->required();
+						$val->name('correo')->value(limpiar($_POST['correo']))->pattern('email')->required();
+						$val->name('contraseña')->value(limpiar($_POST['password']))->min(6)->max(100)->equal(limpiar($_POST['re-password']))->required();
+						$val->name('estado')->value(limpiar($_POST['is_activo']))->required();
+
+
+						if ($val->isSuccess()) {
+
+							$password = limpiar($_POST["password"]);
+							$passhash = password_hash($password, PASSWORD_DEFAULT);
+							$data = [
+								"ID_Rol" => limpiar($_POST["rol"]),
+								"Correo" => limpiar($_POST["correo"]),
+								"Password" => $passhash,
+								"is_activo" => limpiar($_POST["is_activo"])
+							];
+							$save = Usuario_DashboardModel::save($data);
+							Alertas::success(sprintf("Se ha guardado el usuario %s correctamente", $data['Nick']));
+							header("location:" . base_url . "/Usuario_Dashboard");
+						} else {
+							Alertas::danger($val->getErrors());
+							header("location:" . base_url . "/Usuario_Dashboard/nuevo");
+						}
+					} catch (Exception $e) {
+						Alertas::danger($e->getMessage());
+						header("location:" . base_url . "/Usuario_Dashboard/nuevo");
+					}
+				} else {
+					Alertas::warning("Usted no tiene permiso para realizar esta acción");
+					header("location:" . base_url . "/Usuario_Dashboard/nuevo");
+				}
+			} else {
+				//actualizar
+				if (Permisos::updater()) {
+
+					try {
+
+						$val = new Validations();
+						$val->name('correo')->value(limpiar($_POST['correo']))->pattern('email')->required();
+						$val->name('contraseña')->value(limpiar($_POST['password']))->min(6)->max(100)->required();
+						$val->name('estado')->value(limpiar($_POST['is_activo']))->required();
+
+						$password = limpiar($_POST["password"]);
+
+						$passhash = password_hash($password, PASSWORD_DEFAULT);
+
+						if ($val->isSuccess()) {
+							$data = [
+								"ID_Rol" => limpiar($_POST["rol"]),
+								"Correo" => limpiar($_POST["correo"]),
+								"Password" => $passhash,
+								"is_activo" => limpiar($_POST["is_activo"])
+							];
+							$save = Usuario_DashboardModel::updateUser($data, $_POST["id"]);
+							Alertas::success(sprintf("Se ha actualizado el usuario %s correctamente", $data['Nick']));
+							header("location:" . base_url . "/Usuario_Dashboard");
+						} else {
+							Alertas::danger($val->getErrors());
+							header("location:" . base_url . "/Usuario_Dashboard/editar/" . $_POST["id"]);
+						}
+					} catch (Exception $e) {
+						Alertas::danger($e->getMessage());
+						header("location:" . base_url . "/Usuario_Dashboard/editar/" . $_POST["id"]);
+					}
+				} else {
+					Alertas::warning("Usted no tiene permiso para realizar esta acción");
+					header("location:" . base_url . "/Usuario_Dashboard/editar/" . $_POST["id"]);
+				}
+			}
+		}
+	}
+
+	public function eliminar()
+	{
+		if (Permisos::deleter()) {
+			$id = intval($_POST['id']);
+			$user = Usuario_DashboardModel::oneUser($id);
+
+			if (empty($user)) {
+				$arrJson = ['status' => false,'error' => Alertas::danger('No se encontró el usuario')];
+				header("location:" . base_url . "/Usuario_Dashboard");
+			}else{
+				Usuario_DashboardModel::deleteUser($id);
+				$arrJson = ['status' => true, 'msg' => Alertas::success('Se ha eliminado correctamente el usuario')];
+			}
+		}else{
+			$arrJson = ['status' => false,'error' => Alertas::warning('Usted no tiene permiso para realizar esta acción')];
+		}
+
+		echo json_encode($arrJson, JSON_UNESCAPED_UNICODE);
+	}
 	//metodo mostrar Usuario
 	public function mostrarUser()
 	{
@@ -79,12 +180,12 @@ class Usuario_Dashboard extends Controllers{
 
 		if (empty($users)) {
 			$arrJson = ["msg" => "No se encontraron registros"];
-		}else{
+		} else {
 
-			for ($i=0; $i < count($users); $i++) { 
+			for ($i = 0; $i < count($users); $i++) {
 				if ($users[$i]['is_activo'] == 1) {
 					$users[$i]['is_activo'] = "<span class='badge bg-success text-wrap'>Activo</span>";
-				}else{
+				} else {
 					$users[$i]['is_activo'] = "<span class='badge bg-danger text-wrap'>Inactivo</span>";
 				}
 			}
@@ -92,17 +193,6 @@ class Usuario_Dashboard extends Controllers{
 			$arrJson = $users;
 		}
 
-		echo json_encode($arrJson,JSON_UNESCAPED_UNICODE);
-	}
-	//metodo editar Usuario
-	public function editar(){
-		$roles = Usuario_DashboardModel::roles();
-
-		$data['roles'] = $roles;
-		$data["page_principal"] = "Usuario";
-		$data["page_name"] = "Editar";
-		$data["page_title"] = "Usuario - Editar";
-		$data['function_js'] = "Usuario.js";
-		$this->Views->getView($this,'editar',$data);
+		echo json_encode($arrJson, JSON_UNESCAPED_UNICODE);
 	}
 }

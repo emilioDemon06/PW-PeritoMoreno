@@ -158,7 +158,7 @@ class DB extends Conexion
 				$cols .= " $key = :$key AND";
 			}
 			//elimina el and del string $cols_values
-			$cols_values = substr($cols_values, 0,-3);	
+			$cols = substr($cols, 0,-3);	
 		}else{
 			foreach ($id as $key => $value) {
 				$cols .= " $key = :$key";

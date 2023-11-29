@@ -28,11 +28,13 @@ define('IMAGE_PATH', ROOT .DS. 'ASSETS'.DS."img");
 define('SITE_NAME', 'Perito Moreno');
 define('SITE_CHARSET', 'utf-8');
 define('SITE_VERSION', '1.0.0');
-define('SITE_LOGO', 'SantaCruz-PeritoMoreno.png');
+define('SITE_LOGO', 'EscudoPeritoMoreno.jpg');
 define('SITE_FAVICON', 'favicon.ico');
 define('SITE_DESC', 'Municipalidad PeritoMoreno');
 define('SITE_LOGO_MAIN', 'SantaCruz-PeritoMoreno.png');
 define('SITE_ICON_NEW', '<i class="bi bi-plus-square"></i> ');
+define('SITE_ICON_LIST', '<i class="bi bi-card-list"></i> ');
+define('SITE_ICON_REPLY', '<i class="bi bi-reply-fill"></i> ');
 
 /* ###################*/
 /* Archivos publicos  */
@@ -42,6 +44,7 @@ define('CSS', ASSETS.'/css');
 define('FONTS', ASSETS.'/css/fonts');
 define('JS', ASSETS.'/js');
 define('IMAGE', ASSETS.'/img');
+define('PERFIL', ASSETS.'/img/perfil');
 define('FAVICON', ASSETS.'/favicon');
 define('PLUGINS', ASSETS.'/plugins');
 define('UPLOADS', ASSETS.'/uploads');
@@ -51,14 +54,20 @@ define('UPLOADS', ASSETS.'/uploads');
 /* #################################*/
 
 const DASHBOARD = 0;
-const NOTICIAS = 1;
-const GOBIERNO = 2;
-const CONTACTOS = 3;
-const USUARIOS = 4;
-const CATEGORIAS = 5;
-const HISTORIAS = 6;
-const PERMISOS = 7;
-const ROLES = 8;
+const NOTICIA = 1;#
+const USUARIO = 2;#
+const GOBIERNO = 3;#
+const CONTACTO = 4;#
+const HISTORIA = 5;#
+const CATEGORIAS = 6;
+const NOTICIAS = 7;
+const ROLES = 9;
+const EJECUTIVO = 10;
+const LEGISLATIVO = 11;
+const JUDICIAL = 12;
+const CONTACTOS = 13;
+const SECTORES = 14;
+const PERMISOS = 15;
 
 
 

@@ -2,6 +2,9 @@
 
 class Validations
 {
+
+	private $name;
+	private $value;
 	/*===============================
 	=      @var and array Pattern  =
 	===============================*/
@@ -13,14 +16,26 @@ class Validations
 	 */
 	public $patterns = array(
 		'email' => '[a-zA-Z0-9_.]+[@]{1}[a-z0-9]+[\.][a-z]+$',
+		'email-RFC' => "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$",
 		'text'	=> '[\p{L}0-9\s-.,;:!"%&()?+\'°#\/@]+',
 		'tel'	=>	'[0-9+\s()-]+',
 		'int'	=>	'[0-9]+',
 		'word'	=>	'[\p{L}\s]+',
 		'alphanum'	=>	'[\p{L}0-9]+',
-		'alpha'	=>	'[\p{L}]+'
-
-		);
+		'alpha'	=>	'[\p{L}]+',
+		'dir' => "[a-zA-Z1-9À-ÖØ-öø-ÿ]+\.?(( |\-)[a-zA-Z1-9À-ÖØ-öø-ÿ]+\.?)* (((#|[nN][oO]\.?) ?)?\d{1,4}(( ?[a-zA-Z0-9\-]+)+)?)",
+		'dir2' => "[a-zA-Z1-9À-ÖØ-öø-ÿ]+\.?(( |\-)[a-zA-Z1-9À-ÖØ-öø-ÿ]+\.?)*",
+		'telefono' => "0{0,2}([\+]?[\d]{1,3} ?)?([\(]([\d]{2,3})[)] ?)?[0-9][0-9 \-]{6,}( ?([xX]|([eE]xt[\.]?)) ?([\d]{1,5}))?",
+		'url' => "https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$",
+		'password' => '(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$', //La contraseña debe tener entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.
+		'fecha-dd-mm-aaaa' => '(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$', //31.12.3013 01/01/2013 5-3-2013 15.03.2013
+		'fecha-aaaa-mm-dd' => '\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$', //2013-12-14 2013-07-08 2013-7-14 2013/11/8 2013.11.8
+		'visa' => "3[47][0-9]{13}$",
+		'mastercard' => "5[1-5][0-9]{14}$",
+		'americanexpress' => "3[47][0-9]{13}$",
+		'discover' => "6(?:011|5[0-9]{2})[0-9]{12}$",
+		'visa-Mastercard-discover' => "(?:4\d([\- ])?\d{6}\1\d{5}|(?:4\d{3}|5[1-5]\d{2}|6011)([\- ])?\d{4}\2\d{4}\2\d{4})$"	
+	);
 	
 	public $errors = array();
 	/**
@@ -62,7 +77,7 @@ class Validations
 		if ($name == 'array') {
 
 			//validar si la variable es o no un array
-			if (!is_array($value)) {
+			if (is_array($this->value) == FALSE) {
 				$this->errors[] = nl2br("El formato del campo  $this->name no es valido \n "); 
 			}
 		}else{
@@ -108,7 +123,52 @@ class Validations
 		}
 		return $this;
 	}
+
+
+		/**
+	 *
+	 * si existe un fichero
+	 * @return $this
+	 */
 	
+	 public function exist_file()
+	 {
+		 
+		 if (file_exists($this->value)) {
+			 $this->errors[] = nl2br("El campo $this->name no existe \n ");
+		 }
+		 return $this;
+	 }
+
+	/**
+	 *
+	 * si es un email con filter_var
+	 * @return $this
+	 */
+	
+	 public function email()
+	 {
+		 
+		 if (filter_var($this->value, FILTER_VALIDATE_EMAIL) == false) {
+			$this->errors[] = nl2br("El formato del campo  $this->name no es valido \n ");
+		 }
+		 return $this;
+	 }
+	
+	/**
+	 *
+	 * si es una url con filter_var
+	 * @return $this
+	 */
+	
+	 public function url()
+	 {
+		 
+		 if (filter_var($this->value, FILTER_VALIDATE_URL) == false) {
+			$this->errors[] = nl2br("El formato del campo  $this->name no es valido \n ");
+		 }
+		 return $this;
+	 }
 
 
 
@@ -186,11 +246,12 @@ class Validations
 	 * @param mixed $value
 	 * @return boolean
 	 */
-	public function is_int($value)
+	public function is_int()
 	{
-		if (filter_var($value,FILTER_VALIDATE_INT)) {
-			return true;
+		if (filter_var($this->value,FILTER_VALIDATE_INT)) {
+			$this->errors[] = nl2br("El formato del campo  $this->name no es valido \n ");
 		}
+		return $this;
 	}
 
 	/**
@@ -199,11 +260,12 @@ class Validations
 	 * @param mixed $value
 	 * @return boolean
 	 */
-	public function is_alpha($value)
+	public function is_alpha()
 	{
-		if (filter_var($value, FILTER_VALIDATE_REGEXP,array('options' => array('regexp' => "/^[a-zA-Z]+$/"  )))) {
-			return true;
+		if (filter_var($this->value, FILTER_VALIDATE_REGEXP,array('options' => array('regexp' => "/^[a-zA-Z]+$/"  )))) {
+			$this->errors[] = nl2br("El formato del campo  $this->name no es valido \n ");
 		}
+		return $this;
 	}
 
 	/**
@@ -212,11 +274,12 @@ class Validations
 	 * @param mixed $value
 	 * @return boolean
 	 */
-	public function is_alphanum($value)
+	public function is_alphanum()
 	{
-		if (filter_var($value, FILTER_VALIDATE_REGEXP,array('options'=> array('regexp' => "/^[a-zA-Z0-9]+$/")))) {
-			return true;
+		if (filter_var($this->value, FILTER_VALIDATE_REGEXP,array('options'=> array('regexp' => "/^[a-zA-Z0-9]+$/")))) {
+			$this->errors[] = nl2br("El formato del campo  $this->name no es valido \n ");
 		}
+		return $this;
 	}
 
 	/**
@@ -225,11 +288,12 @@ class Validations
 	 * @param mixed $value
 	 * @return boolean
 	 */
-	public function is_email($value)
+	public function is_email()
 	{
-		if (filter_var($value,FILTER_VALIDATE_EMAIL)) {
-			return true;
+		if (filter_var($this->value,FILTER_VALIDATE_EMAIL)) {
+			$this->errors[] = nl2br("El formato del campo  $this->name no es valido \n ");
 		}
+		return $this;
 	}
 
 

@@ -37,7 +37,7 @@ class Alertas
 		return true;
 	}
 
-	static function error($msg)
+	static function danger($msg)
 	{
 		self::newAlert($msg,'danger');
 		return true;
@@ -50,6 +50,11 @@ class Alertas
 	static function success($msg)
 	{
 		self::newAlert($msg,'success');
+		return true;
+	}
+	static function warning($msg)
+	{
+		self::newAlert($msg,'warning');
 		return true;
 	}
 	

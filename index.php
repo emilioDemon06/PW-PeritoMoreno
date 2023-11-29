@@ -2,7 +2,7 @@
 session_set_cookie_params(60*60*24);
 session_start();
 require_once "Helpers/Helpers.php";
-require_once "Config/config.php";
+require_once "Config/Config.php";
 
 $url = !empty($_GET["url"]) ?  $_GET["url"] : CONTROLLER_DEFAULT. "/". METHOD_DEFAULT;
 

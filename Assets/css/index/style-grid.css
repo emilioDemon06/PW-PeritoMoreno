@@ -1,20 +1,20 @@
 .contenedor{
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-template-areas: "header   header   header   header"
-						 "nav      nav      nav      nav"
-						 "section  section  section  aside"
-						 "section2 section2 section2 section2"
-						 "section2 section2 section2 section2"
-						 "footer   footer   footer   footer"; 
+	grid-template-areas: "header-contact  header-contact  header-contact  header-contact"
+						 "header          header          header          header"
+						 "section         section         section         aside"
+						 "section2        section2        section2        section2"
+						 "section2        section2        section2        section2"
+						 "footer          footer          footer          footer"; 
 	justify-items: center;
 	
 }
+.contenedor .header-contact{
+	grid-area: header-contact;
+}
 .contenedor .header{
 	grid-area: header;
-}
-.contenedor .nav{
-	grid-area: nav;
 }
 .contenedor .aside{
 	grid-area: aside;	
@@ -35,19 +35,19 @@
 	
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-template-areas: "header   header   header"
-						 "nav      nav      nav   "
-						 "section  section  section"
-						 "section2 section2 section2"
-						 "aside    aside    aside"
-						 "footer   footer   footer"; 
+	grid-template-areas: "header-contact   header-contact   header-contact"
+						 "header           header           header"
+						 "section          section          section"        
+						 "section2         section2         section2"
+						 "aside            aside            aside"
+						 "footer           footer           footer"; 
+	}
+	.contenedor .header-contact{
+	grid-area: header-contact;
+	justify-self: stretch;
 	}
 	.contenedor .header{
 	grid-area: header;
-	justify-self: stretch;
-	}
-	.contenedor .nav{
-	grid-area: nav;
 	justify-self: stretch;
 	}
 	.contenedor .section{

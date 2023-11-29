@@ -27,10 +27,10 @@ class Categoria_Dashboard extends Controllers{
 
 	public function agregar(){
 
-		$errores = Categoria_DashboardModel::validar();
+		//$errores = Categoria_DashboardModel::validar();
 		
 
-		$data = $errores;
+		/*$data = $errores;
 
 		if (empty($errores)) {
 			$data = [
@@ -39,7 +39,7 @@ class Categoria_Dashboard extends Controllers{
 			$idInsert = Categoria_DashboardModel::insert('categoria',$data);
 			$data = ["msg" =>"se guardo correctamente"];
 		}
-		echo json_encode($data,JSON_UNESCAPED_UNICODE);
+		echo json_encode($data,JSON_UNESCAPED_UNICODE);*/
 	}
 
 

@@ -16,7 +16,7 @@ class Auth
 	{
 		$respuesta = DB::SQL("SELECT * FROM usuario as u INNER JOIN rol as r ON u.ID_Rol = r.ID WHERE u.ID = $idUser");
 		$_SESSION["userData"] = $respuesta[0];
-		return $respuesta[0];
+		return $respuesta;
 	}
 	/**
 	 *

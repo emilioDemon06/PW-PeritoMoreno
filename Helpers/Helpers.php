@@ -99,13 +99,22 @@ function get_logo()
 	$default_logo = SITE_LOGO;
 	$placeholder_image = "https://via.placeholder.com/150x60";
 
-	if (!is_file(IMAGE_PATH.DS.$default_logo)) {
+	if (is_file(IMAGE_PATH.DS.$default_logo) == false) {
 		return $placeholder_image;
+	}else{
+
+		return IMAGE .DS. $default_logo;
 	}
-	return IMAGE .DS. $default_logo;
 	
 }
+/* ###### 
+#########  Funcion para convertir un array en objeto ##########
+##### */
 
+function to_obj($array)
+{
+	return json_decode(json_encode($array));
+}
 
 /* ###### 
 #########  Funcion para escapar de caracteres hackeables ##########
@@ -113,7 +122,14 @@ function get_logo()
 function limpiar($str)
 {
 	$datos = trim($str);//elimina los epacios en un string
-	$datos = htmlspecialchars($datos,ENT_QUOTES,'UTF-8');
+	$datos = htmlspecialchars($datos,ENT_QUOTES);
 	$datos = utf8_decode($datos);
 	return addslashes($datos);
+}
+/* ###### 
+#########  Funcion que devuelve la fecha actual ##########
+##### */
+function now() 
+{
+	return date('Y-m-d H:i:s');
 }

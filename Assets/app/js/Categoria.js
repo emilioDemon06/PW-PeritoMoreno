@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded",function() {
 
 	
 
-async function agregar(){
+/*async function agregar(){
 		event.preventDefault();
 		let formCategoria = new FormData(document.querySelector("#form_categoria"));
 	try {
@@ -23,4 +23,4 @@ async function agregar(){
 	}
 
 	
-}
+}*/

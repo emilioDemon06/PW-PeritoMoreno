@@ -20,11 +20,7 @@
   <!-- Vendor CSS Files -->
   <link href="<?= CSS ?>/bootstrap.min.css" rel="stylesheet">
   <link href="<?= CSS ?>/bootstrap-icons.css" rel="stylesheet">
-  <link href="<?= CSS ?>/boxicons.min.css" rel="stylesheet">
-  <link href="<?= CSS ?>/quill/quill.snow.css" rel="stylesheet">
-  <link href="<?= CSS ?>/quill/quill.bubble.css" rel="stylesheet">
-  <link href="<?= CSS ?>/remixicon/remixicon.css" rel="stylesheet">
-  <link href="<?= CSS ?>/simple-datatables/style.css" rel="stylesheet">
+
 
   <!-- Template Main CSS File -->
   <link href="<?= ASSETS ?>/app/css/style-login.css" rel="stylesheet">
@@ -56,31 +52,45 @@
 
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4"><?php echo $data["page_sesion"];  ?></h5>
-                    <p class="text-center small">Ingrese su nombre de usuario y contraseña para iniciar sesión</p>
+                    <p class="text-center small">Ingrese su email y contraseña para iniciar sesión</p>
                   </div>
 
                   <form  method="POST" id="form_login" class="row g-3 needs-validation" novalidate>
 
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Nombre de Usuario</label>
+                    <div class="col-12 form-input">
+                      <label for="yourUsername" class="form-label">Email:</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Por favor ingrese su nombre de usuario.</div>
+                        <input type="text" name="emailname" class="form-box form-control" id="yourEmail" placeholder="ejemplo@email.com">
+                        <div id="msgEmail" class="invalid-feedback"></div>
+                        <!--<div id="msgEmail" class="valid-feedback">Excelente! Por favor ingrese su email!</div>-->   
                       </div>
                     </div>
 
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Contraseña</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Por favor ingrese su Contraseña!</div>
+                    <div class="col-12 form-input" >
+                      <label for="yourPassword" class="form-label">Contraseña:</label>
+                      <input type="password" name="password" class="form-box form-control" id="yourPassword" >
+                      <div id="msgpass" class="was-validated invalid-feedback"></div>
                     </div>
 
-                    <div id="respuesta" class="col-12">
-
+                    
+                    <div class="col-12">
+                      <p class="text-center small">Si olvido su contraseña o se bloqueo su cuenta, diríjase al área informática.</p>
+                      <p class="text-center small">Recuerde que solamente tiene 3 intentos fallidos.</p>
+                    </div>
+                    
+                    <div class="col-12">
+                      <div id="userErr"></div>
+                      <div id="passErr"></div>
+                      <div id="respSuccess">
+                      <?php echo Alertas::mostrarAlerta(); ?> 
+                      </div>
+                      <div id="respDanger">
+                        <?php echo Alertas::mostrarAlerta(); ?> 
+                      </div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Entrar</button>
+                      <button id="submit-btn" class="btn btn-primary w-100" type="submit">Entrar</button>
                     </div>
                   </form>
 
@@ -88,7 +98,7 @@
               </div>
 
               <div class="credits">
-                Designed by <a href="<?= base_url ?>/Home">Municipalidad Perito Moreno</a>
+                Designed by <a id="credit" href="<?= base_url ?>/Home">Municipalidad Perito Moreno</a>
               </div>
 
             </div>
@@ -103,15 +113,11 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="<?= JS ?>/apexcharts/apexcharts.min.js"></script>
   <script src="<?= JS ?>/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="<?= JS ?>/chart.js/chart.umd.js"></script>
-  <!--<script src="<?= JS ?>/charts/echarts.min.js"></script>-->
-  <script src="<?= JS ?>/quill/quill.min.js"></script>
-  <script src="<?= JS ?>/simple-datatables/simple-datatables.js"></script>
-  <script src="<?= JS ?>/tinymce/tinymce.min.js"></script>
+  <script src="<?= JS ?>/bootstrap/bootstrap.min.js"></script>
+  
   <script src="<?= JS ?>/php-email-form/validate.js"></script>
-
+  
   <!-- constante js -->
     <script>
       const base_url = "<?= base_url; ?>";

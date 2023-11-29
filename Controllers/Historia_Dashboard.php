@@ -8,7 +8,7 @@ class Historia_Dashboard extends Controllers{
         {
             //ejecutamos el metodo constructor de la clase controller de la ruta libraries/core
             Auth::noAuth();
-			Permisos::getPermisos(HISTORIAS);
+			Permisos::getPermisos(HISTORIA);
             parent::__construct();
         }
 

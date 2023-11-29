@@ -20,12 +20,23 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Listado de Usuarios</h5>
-              <p> Listado de las Usuarios, puedes ingresar un nuevo <strong>usuario</strong> en el boton: 
-                <!--<button type="button" class="btn btn-primary"><?= SITE_ICON_NEW ?>Ingresar</button></p>-->
+              <!--Permisos en Boton Crear-->
+              <?php if(Permisos::create()): ?>
+                <a class="btn btn-primary" href="<?= base_url ?>/Usuario_Dashboard/nuevo" role="button"><?= SITE_ICON_NEW ?>Nuevo Usuario</a>
+              <?php endif; ?>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-2">
+                    <?= Alertas::mostrarAlerta(); ?>
+                     <div id="resp">
 
-              <!-- Disabled Backdrop Modal -->
-              <a class="btn btn-primary" href="<?= base_url ?>/Usuario_Dashboard/nuevo" role="button"><?= SITE_ICON_NEW ?>Agregar</a>
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <h5 class="card-title">Listado de Usuarios</h5>
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -35,6 +46,7 @@
                       <tr>
                         <th scope="col"># ID</th>
                         <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
                         <th scope="col">Rol</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Estado</th>
@@ -45,7 +57,7 @@
                       
                     </tbody>
                   </table>
-              <!-- End Table with stripped rows -->
+                  <!-- End Table with stripped rows -->
                   </div>
                 </div>
               </div>
@@ -56,9 +68,7 @@
             </div>
           </div>
 
-        </div>
-
-      
+        </div>      
       </div>
     </section>
 

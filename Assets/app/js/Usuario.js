@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		//datos desde el servidor
 		columns:[
 			{data:"ID"},
-			{data:"NombreUser"},
+			{data:"NombreUs"},
+			{data:"Apellido"},
 			{data:"NombreRol"},
 			{data:"Correo"},
 			{data:"is_activo"},
@@ -40,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			{
 			targets:[0],
 			visible:false,
-			serchable:false,
+			serchable:true,
 			}
 		],
 		//ordenar por nombre 
@@ -70,30 +71,13 @@ document.addEventListener("DOMContentLoaded", function () {
 		
 	});
 
-	nuevo();
-
+	//nuevo();	
 }, false )
 
-//boton editar
-$("#tableUser tbody").on("click", "button.editarfnt", async function(){
-		let data_table = tableUsuario.row($(this).parents("tr")).data();
-		let idUser = data_table.ID;
-		window.location.href = `${base_url}/Usuario_Dashboard/editar/${idUser}`;
-	}
-)
-
-
-/*document.querySelector("#form_users").addEventListener("submit",function(e) {
-	e.preventDefault();
-	nuevo();
-});*/
-	
-
-	
-
-async function nuevo(){
+//Boton Nuevo
+/*async function nuevo(){
 		
-		let formUsers = new FormData(formNuevo);
+	let formUsers = new FormData(formNuevo);
 	try
 	{
 		const url = `${base_url}/Usuario_Dashboard/nuevo`;
@@ -104,20 +88,93 @@ async function nuevo(){
 		const resultado = await respuesta.json();
 
 		if(resultado.status){
-	      resp.innerHTML = `<div class="alert alert-success" role="alert">${resultado.msg}</div>`;
-	      setTimeout(()=>{
-	      		window.location.href = `${base_url}/Usuario_Dashboard`;
+		resp.innerHTML = `<div class="alert alert-success" role="alert">${resultado.msg}</div>`;
+		setTimeout(()=>{
+				window.location.href = `${base_url}/Usuario_Dashboard`;
 			},1000);
-	    }else{	
-	      resp.innerHTML = `<div class="alert alert-danger" role="alert">${resultado.error}</div>`;
-	    }
-	    
+		}else{	
+		resp.innerHTML = `<div class="alert alert-danger" role="alert">${resultado.error}</div>`;
+		}
+		
 	} catch(err) {
 		
 		console.log(err);
 		let message = err.statusText || "Ocurrio un error";
 		resp.innerHTML = `error: ${err.status} : ${message}`;
 	}
+
+}*/
+
+
+
+//boton editar
+$("#tableUser tbody").on("click", "button.editarfnt", async function(){
+		let data_table = tableUsuario.row($(this).parents("tr")).data();
+		let idUser = data_table.ID;
+		window.location.href = `${base_url}/Usuario_Dashboard/editar/${idUser}`;
+	}
+)
+
+
+//boton borrar
+$("#tableUser tbody").on("click", "button.eliminarfnt", async function(){
+		let data_table = tableUsuario.row($(this).parents("tr")).data();
+		let idUser = data_table.ID;
+		let resp = document.getElementById("resp");
+
+
+		async function eliminar() {
+			const datos = new FormData();
+
+			datos.append('id',idUser);
+
+			try {
+				const url = `${base_url}/Usuario_Dashboard/eliminar`;
+				const respuesta = await fetch(url,{
+					method: "POST",
+					body: datos,
+				});
+				const resultado = await respuesta.json();
+
+				if(resultado.status){
+	      			resp.innerHTML = `${resultado.msg}`;
+	      			window.location.href = `${base_url}/Usuario_Dashboard`;	
+				}else{	
+					resp.innerHTML = `${resultado.error}`;
+					window.location.href = `${base_url}/Usuario_Dashboard`;	
+	    		}
+
+
+			} catch(err) {
+				console.log(err);
+				let message = err.statusText || "Ocurrio un error";
+				resp.innerHTML = `error: ${err.status} : ${message}`;
+			}
+		}
+
+		Swal.fire({
+		  title: '¿Estas seguro?',
+		  text: "¡No podrás revertir esto.!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Eliminar',
+		  cancelButtonText: 'Cancelar',
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire(
+		      '¡Eliminado!',
+		      'Tu archivo ha sido eliminado.',
+		      'success',
+		    )
+		      eliminar();
+		  }
+		})
+
+	}
+)
+
+
 	
-	
-}
+
