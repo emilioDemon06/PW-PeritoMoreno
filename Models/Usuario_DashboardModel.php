@@ -22,6 +22,12 @@
 			$respuesta = DB::SQL("SELECT * FROM rol WHERE is_activo != 0 ");
 			return $respuesta;
 		}
+		public static function sectores()
+		{
+			//sectores 
+			$respuesta = DB::SQL("SELECT * FROM sector");
+			return $respuesta;
+		}
 		public static function save($data)
 		{
 			$idSave = DB::insert("usuario",$data);
@@ -29,7 +35,7 @@
 		}
 		public static function oneUser($id)
 		{
-			$sql = "SELECT us.ID,us.ID_Rol,us.Nombre, us.Apellido, r.Nombre as NombreRol,  us.Correo,us.Password, us.is_activo FROM usuario as us INNER JOIN rol as r ON us.ID_Rol = r.ID WHERE us.ID = :id";
+			$sql = "SELECT us.ID,us.ID_Rol,us.Nombre, us.Apellido, r.Nombre as NombreRol, s.Lugar as Lugar, s.ID as IdLugar, us.Correo,us.Password, us.is_activo FROM usuario as us INNER JOIN rol as r ON us.ID_Rol = r.ID INNER JOIN sector as s ON us.ID_Sector = s.ID WHERE us.ID = :id";
 			$row = parent::query($sql, ['id' => $id]);
 			//$info = DB::SQL("SELECT us.ID,us.ID_Rol, us.Nick as NombreUser, r.Nombre as NombreRol, us.Correo,us.Password, us.is_activo FROM usuario as us INNER JOIN rol as r ON us.ID_Rol = r.ID WHERE us.ID = $id");
 			return $row[0];

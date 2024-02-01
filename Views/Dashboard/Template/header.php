@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="<?= SITE_LANG ?>">
 
 <head>
@@ -18,26 +18,18 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="<?= CSS ?>/bootstrap.min.css" rel="stylesheet">
-  <link href="<?= CSS ?>/bootstrap-icons.css" rel="stylesheet">
-  <link href="<?= CSS ?>/boxicons/boxicons.min.css" rel="stylesheet">
-  <link href="<?= CSS ?>/quill/quill.snow.css" rel="stylesheet">
-  <link href="<?= CSS ?>/quill/quill.bubble.css" rel="stylesheet">
-  <!--<link href="<?= CSS ?>/remixicon/remixicon.css" rel="stylesheet">-->
-  <!-- Template Main CSS File -->
-  <!--<link href="<?= CSS ?>/simple-datatables/style.css" rel="stylesheet">-->
   <link href="<?= ASSETS ?>/app/css/style-dashboard.css" rel="stylesheet">
+  <link href="<?= CSS ?>/bootstrap-icons.css" rel="stylesheet">
   
-
-
+  
+  
   <!-- Plugins-->
-  <!--<link href="<?= PLUGINS ?>/Noty/noty.css" rel="stylesheet">-->
-  <!--<link href="<?= PLUGINS ?>/DataTable/datatables.min.css" rel="stylesheet">-->
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-1.13.6/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/b-print-2.4.2/cr-1.7.0/date-1.5.1/r-2.5.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
-
+  <link href="<?= CSS ?>/bootstrap.min.css" rel="stylesheet">
+  <link href="<?= PLUGINS ?>/DataTable/datatables.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="<?= PLUGINS ?>/sweetalert2/sweetalert2.min.css">
+  <script src="<?= PLUGINS ?>/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: May 30 2023 with Bootstrap v5.3.0
@@ -49,7 +41,9 @@
 
 <body>
 
-
+  <div id="contenedor_carga">
+    <div id="carga"></div>
+  </div>
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -80,8 +74,8 @@
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img style="width:90%;" class="rounded-circle" src="<?= PERFIL; ?>/<?php echo $_SESSION['fotoPerfil']; ?>" alt="Profile" class="rounded-circle">
+          <a class="nav-link nav-profile d-flex align-items-center p-4" href="#" data-bs-toggle="dropdown">
+            <img style="width:41px; height:43px; object-fit:cover;" class="rounded-circle" src="<?= PERFIL; ?>/<?php echo $_SESSION['fotoPerfil']; ?>" alt="Profile">
             <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION["nombre"]; ?> <?= $_SESSION["apellido"]; ?></span>
           </a><!-- End Profile Iamge Icon -->
 

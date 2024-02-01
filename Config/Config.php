@@ -26,9 +26,10 @@ define('IMAGE_PATH', ROOT .DS. 'ASSETS'.DS."img");
 /* #######################*/
 
 define('SITE_NAME', 'Perito Moreno');
-define('SITE_CHARSET', 'utf-8');
+define('SITE_CHARSET', 'UTF-8');
 define('SITE_VERSION', '1.0.0');
 define('SITE_LOGO', 'EscudoPeritoMoreno.jpg');
+define('SITE_PLACEHOLDER', 'placeholder-image.jpg');
 define('SITE_FAVICON', 'favicon.ico');
 define('SITE_DESC', 'Municipalidad PeritoMoreno');
 define('SITE_LOGO_MAIN', 'SantaCruz-PeritoMoreno.png');
@@ -45,6 +46,7 @@ define('FONTS', ASSETS.'/css/fonts');
 define('JS', ASSETS.'/js');
 define('IMAGE', ASSETS.'/img');
 define('PERFIL', ASSETS.'/img/perfil');
+define('IMAGE_NOTICIA', ASSETS.'/img/noticias');
 define('FAVICON', ASSETS.'/favicon');
 define('PLUGINS', ASSETS.'/plugins');
 define('UPLOADS', ASSETS.'/uploads');
@@ -87,3 +89,9 @@ const DB_CHARSET = "utf8";
 define("CONTROLLER_DEFAULT", "Home");
 define("METHOD_DEFAULT", "index");
 define("CONTROLLER_ERROR", "Error404");
+
+/* ######################*/
+/*  Visual de la pagina  */
+/* ######################*/
+define("ICON_EDITAR","<i class='bi bi-pencil-square'></i>");
+define("ICON_ELIMINAR","<i class='bi bi-trash'></i>");

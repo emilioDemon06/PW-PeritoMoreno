@@ -23,6 +23,7 @@ class Validations
 		'word'	=>	'[\p{L}\s]+',
 		'alphanum'	=>	'[\p{L}0-9]+',
 		'alpha'	=>	'[\p{L}]+',
+		'nombreyapellido' => "A-ZÑa-zñáéíóúÁÉÍÓÚ'°",
 		'dir' => "[a-zA-Z1-9À-ÖØ-öø-ÿ]+\.?(( |\-)[a-zA-Z1-9À-ÖØ-öø-ÿ]+\.?)* (((#|[nN][oO]\.?) ?)?\d{1,4}(( ?[a-zA-Z0-9\-]+)+)?)",
 		'dir2' => "[a-zA-Z1-9À-ÖØ-öø-ÿ]+\.?(( |\-)[a-zA-Z1-9À-ÖØ-öø-ÿ]+\.?)*",
 		'telefono' => "0{0,2}([\+]?[\d]{1,3} ?)?([\(]([\d]{2,3})[)] ?)?[0-9][0-9 \-]{6,}( ?([xX]|([eE]xt[\.]?)) ?([\d]{1,5}))?",
@@ -140,6 +141,54 @@ class Validations
 		 return $this;
 	 }
 
+
+	/**
+	 *
+	 * validar extención de imagenes
+	 * @return $this
+	 */
+	
+	 public function image_type($imagen)
+	 {
+
+		 if ($imagen != "image/jpg" && $imagen != "image/jpeg" && $imagen != "image/png" && $imagen != "image/gif") {
+			 $this->errors[] = nl2br("Extención $imagen del campo $this->name, Solo se permiten imágenes tipo JPG, JPEG, PNG & GIF \n ");
+		 }
+		 return $this;
+	 }
+
+
+	 	/**
+	 *
+	 * validar extención de imagenes con patch 
+	 * @return $this
+	 */
+	
+	 public function image_type_pathinfo()
+	 {
+		$imagen = strtolower(pathinfo($this->value,PATHINFO_EXTENSION));
+		 if ($imagen !== "jpg" && $imagen !== "jpeg" && $imagen !== "png" && $imagen !== "gif") {
+			 $this->errors[] = nl2br("Extención $imagen del campo $this->name, Solo se permiten imágenes tipo JPG, JPEG, PNG & GIF \n ");
+		 }
+		 return $this;
+	 }
+
+
+	 	/**
+	 *
+	 * validar imagenes
+	 * @return $this
+	 */
+	
+	 public function image_size($imagen)
+	 {
+		//1M = 1000000
+		 if ($imagen > 4000000) {
+			 $this->errors[] = nl2br("El campo $this->name es muy pesado \n ");
+		 }
+		 return $this;
+	 }
+
 	/**
 	 *
 	 * si es un email con filter_var
@@ -246,9 +295,9 @@ class Validations
 	 * @param mixed $value
 	 * @return boolean
 	 */
-	public function is_int()
+	public function int()
 	{
-		if (filter_var($this->value,FILTER_VALIDATE_INT)) {
+		if (filter_var($this->value,FILTER_VALIDATE_INT) == false) {
 			$this->errors[] = nl2br("El formato del campo  $this->name no es valido \n ");
 		}
 		return $this;
@@ -260,9 +309,10 @@ class Validations
 	 * @param mixed $value
 	 * @return boolean
 	 */
-	public function is_alpha()
-	{
-		if (filter_var($this->value, FILTER_VALIDATE_REGEXP,array('options' => array('regexp' => "/^[a-zA-Z]+$/"  )))) {
+	public function alpha()
+	{	
+		$preg = "/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'°]+$/";
+		if (filter_var($this->value, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $preg))) == false) {
 			$this->errors[] = nl2br("El formato del campo  $this->name no es valido \n ");
 		}
 		return $this;
@@ -274,23 +324,9 @@ class Validations
 	 * @param mixed $value
 	 * @return boolean
 	 */
-	public function is_alphanum()
+	public function alphanum()
 	{
-		if (filter_var($this->value, FILTER_VALIDATE_REGEXP,array('options'=> array('regexp' => "/^[a-zA-Z0-9]+$/")))) {
-			$this->errors[] = nl2br("El formato del campo  $this->name no es valido \n ");
-		}
-		return $this;
-	}
-
-	/**
-	 *
-	 * verifica si el valor es un correo electronico
-	 * @param mixed $value
-	 * @return boolean
-	 */
-	public function is_email()
-	{
-		if (filter_var($this->value,FILTER_VALIDATE_EMAIL)) {
+		if (filter_var($this->value, FILTER_VALIDATE_REGEXP,array('options'=> array('regexp' => "/^[a-zA-Z0-9]+$/"))) == false) {
 			$this->errors[] = nl2br("El formato del campo  $this->name no es valido \n ");
 		}
 		return $this;

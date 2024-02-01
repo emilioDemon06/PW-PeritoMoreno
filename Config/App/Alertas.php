@@ -67,11 +67,11 @@ class Alertas
 		foreach ($self->valid_type as $type) {
 			if (isset($_SESSION[$type]) && !empty($_SESSION[$type])) {
 				foreach ($_SESSION[$type] as $m) {
-					$placeholder = '<div class="alert alert-%s alert-dismissible fade show" role="alert">
+					$placeholder = '<div class="alert alert-%s bg-%s text-light alert-dismissible fade show" role="alert">
   %s
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>';
-					$output .= sprintf($placeholder,$type,$m);
+					$output .= sprintf($placeholder,$type,$type,$m);
 				}
 			unset($_SESSION[$type]);
 			}

@@ -32,7 +32,7 @@
 
               <form class="form-horizontal form-label-left" action="<?php echo base_url; ?>/Permiso_Dashboard/store" method="POST" novalidate>
 
-                <input type="text" name="idRol" id="idRol" value="<?php echo $data['id_rol']; ?>">
+                <input type="hidden" name="idRol" id="idRol" value="<?php echo $data['id_rol']; ?>">
 
                 <!-- Table with stripped rows -->
                 <table class="display table nowrap responsive w-100" >
@@ -40,10 +40,10 @@
                     <tr>
                       <th scope="col"># ID</th>
                       <th scope="col">Pagina</th>
-                      <th scope="col">Create</th>
-                      <th scope="col">Read</th>
-                      <th scope="col">Update</th>
-                      <th scope="col">Delete</th>
+                      <th scope="col">Crear</th>
+                      <th scope="col">Leer</th>
+                      <th scope="col">Actualizar</th>
+                      <th scope="col">Borrar</th>
                     </tr>
                   </thead>
                   <tbody>

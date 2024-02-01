@@ -19,15 +19,17 @@
 
           <div class="card">
             <div class="card-body">
-              <a class="btn btn-success" href="<?= base_url ?>/Sector_Dashboard" role="button" title="volver"><?= SITE_ICON_REPLY ?></a>
+            <a class="btn btn-success" href="<?= base_url ?>/Sector_Dashboard"  role="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Volver" title="volver"><?= SITE_ICON_REPLY ?></a>
 
-               <div class="container-fluid">
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-2">
-                    <?= Alertas::mostrarAlerta(); ?>
+              <?php if($_SESSION["login"]): ?>
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-2">
+                        <?= Alertas::mostrarAlerta(); ?>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                  <?php endif; ?>
 
 
               

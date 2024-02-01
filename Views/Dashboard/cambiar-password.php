@@ -37,6 +37,7 @@
         </div>
 
         <!-- Errores de servidor -->
+        <?php if($_SESSION["login"]): ?>
         <div class="col-12">
             <div id="userErr"></div>
             <div id="passErr"></div>
@@ -44,7 +45,7 @@
                 <?php echo Alertas::mostrarAlerta(); ?>
             </div>
         </div>
-
+        <?php endif; ?>
 
         <div class="text-center">
             <button id="btn-edit-pass" type="submit" class="btn btn-primary">Cambiar contraseña</button>

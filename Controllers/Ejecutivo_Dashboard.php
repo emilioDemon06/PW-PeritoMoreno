@@ -2,7 +2,7 @@
 
 
 
-class Gobierno_Dashboard extends Controllers{
+class Ejecutivo_Dashboard extends Controllers{
 
 	public function __construct() 
         {

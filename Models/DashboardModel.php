@@ -14,7 +14,7 @@
 
 		public static function infoUser($idUser)
 		{
-			$usersInfo = DB::SQL("SELECT u.ID, r.Nombre as NombreRol, s.Lugar, s.Calle, s.Altura, u.Nombre, u.Apellido, u.FotoPerfil, u.Telefono, u.Correo, u.Facebook, u.Instagram FROM usuario as u INNER JOIN rol as r ON u.ID_Rol = r.ID INNER JOIN sector as s ON u.ID_Sector = s.ID WHERE u.ID = $idUser");
+			$usersInfo = DB::SQL("SELECT u.ID, r.Nombre as NombreRol, s.ID as IdLugar, s.Lugar, s.Calle, s.Altura, u.Nombre, u.Apellido, u.FotoPerfil, u.Telefono, u.Correo, u.Facebook, u.Instagram FROM usuario as u INNER JOIN rol as r ON u.ID_Rol = r.ID INNER JOIN sector as s ON u.ID_Sector = s.ID WHERE u.ID = $idUser");
 
 			return $usersInfo[0];
 		}
@@ -33,5 +33,9 @@
 			$info = DB::SQL("SELECT * FROM sector");
 			return $info;
 		}
-
+		public static function save($data)
+		{
+			$idSave = DB::insert("usuario",$data);
+			return $idSave;
+		}
 	}

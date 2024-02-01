@@ -6,7 +6,7 @@
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="<?php echo base_url ?>/Dashboard">Home</a></li>
+          <li class="breadcrumb-item"><a href="<?php echo base_url ?>/Rol_Dashboard">Home</a></li>
           <li class="breadcrumb-item active"><?php echo $data["page_name"]; ?></li>
         </ol>
       </nav>
@@ -23,6 +23,7 @@
                 <a class="btn btn-primary" href="<?= base_url ?>/Rol_Dashboard/nuevo" role="button"><?= SITE_ICON_NEW ?>Nuevo Rol</a>
               <?php endif; ?>
 
+              <?php if($_SESSION["login"]): ?>
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-2">
@@ -32,7 +33,8 @@
                   </div>
                 </div>
               </div>
-
+              <?php endif; ?>
+              
               <!-- Table with stripped rows -->
               <table id="table" class="display table nowrap responsive">
                 <thead>
@@ -57,8 +59,8 @@
                       <!--Acciones-->
                       <td>
                         <a type='button' class='btn btn-info btn-sm me-1' href="<?= base_url ?>/Permiso_Dashboard/index/<?= $r->ID; ?>">Permiso</a>
-                        <a type='button' class='editarfnt btn btn-warning btn-sm me-1' href="<?= base_url ?>/Rol_Dashboard/editar/<?= $r->ID; ?>">Editar</a>
-                        <button id="rolData" data-idrol='<?= $r->ID; ?>' data-namerol='<?= $r->Nombre; ?>' type='button' class='btn btn-danger btn-sm' onclick="eliminarFnt(this)">Eliminar</button>
+                        <a type='button' class='editarfnt btn btn-sm me-1 btn-edit text-light' href="<?= base_url ?>/Rol_Dashboard/editar/<?= $r->ID; ?>" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Editar"><?php echo ICON_EDITAR; ?></a>
+                        <button id="rolData" data-idrol='<?= $r->ID; ?>' data-namerol='<?= $r->Nombre; ?>' type='button' class='btn btn-danger btn-sm' onclick="eliminarFnt(this)" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Eliminar"><?php echo ICON_ELIMINAR; ?></button>
                         
                       </td>
                     </tr>

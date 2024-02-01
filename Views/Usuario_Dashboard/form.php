@@ -19,7 +19,25 @@
                                 </select>
                             </div>
                         </div>
-
+                        
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Sector de Trabajo:</label>
+                          <div class="col-sm-10">
+                                <select class="form-select" name="sector" aria-label="Default select example">
+                                    <?php if (empty($usuario)) :?>
+                                        <option selected value="">Seleccione el Sector</option>
+                                        <?php foreach ($sectores as $sector) : ?>
+                                            <option value="<?= $sector->ID; ?>"><?= $sector->Lugar; ?></option>
+                                        <?php endforeach ?>
+                                    <?php else : ?>
+                                        <option selected value="<?php echo $usuario->IdLugar; ?>"><?php echo $usuario->Lugar; ?></option>
+                                        <?php foreach ($sectores as $sector) : ?>
+                                            <option value="<?= $sector->ID; ?>"><?= $sector->Lugar; ?></option>
+                                        <?php endforeach ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="row mb-3">
                           <label for="inputEmail" class="col-sm-3 col-form-label">Correo</label>

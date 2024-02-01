@@ -18,7 +18,7 @@ class Rol_Dashboard extends Controllers
 			$roles = Rol_DashboardModel::allRol();
 	
 			$data["roles"] = to_obj($roles);
-			$data["page_name"] = "Roles";
+			$data["page_name"] = "Rol";
 			$data["page_title"] = "Dashboard - Roles";
 			$data['function_js'] = "Rol.js";
 			$this->Views->getView($this, 'index', $data);
@@ -42,7 +42,7 @@ class Rol_Dashboard extends Controllers
 			$data['function_js'] = "Rol.js";
 			$this->Views->getView($this, 'nuevo', $data);
 		} else {
-
+			Alertas::warning("Usted no tiene permiso para realizar esta acción");
 			header('Location:' . base_url . '/Rol_Dashboard');
 		}
 	}
@@ -78,13 +78,21 @@ class Rol_Dashboard extends Controllers
 			$id = intval(Sanitations::san_entero($_POST['id']));
 			$nombre = strval(Sanitations::san_caracter_especial($_POST['nombre']));
 			$rol = Rol_DashboardModel::oneRol($id);
-	
+			
 			if (empty($rol)) {
 				$arrJson = ['error' => 'No se encontró el rol'];
 				header("location:" . base_url . "/Rol_Dashboard");
 			} else {
-				Rol_DashboardModel::deleteRol($id);
-				$arrJson = ['status' => true, 'msg' => Alertas::success("Se ha eliminado correctamente el rol")];
+				
+				
+				$delete_rol = Rol_DashboardModel::deleteRol($id);
+				/*if($delete_rol == false){
+					$arrJson = ['status' => false, "error" => Alertas::warning("Ocurrio un error al borrar el rol, recuerde que algunos usuarios estan adheridos a este rol")];
+				}else{
+					$arrJson = ['status' => true, 'msg' => Alertas::success("Se ha eliminado correctamente el rol")];
+				}*/
+				$arrJson = ['status' => false, "error" => Alertas::warning($delete_rol)];
+				
 			}
 		}else{
 			$arrJson = ['status' => false, "error" => Alertas::warning("Usted no tiene permiso para realizar esta acción")];

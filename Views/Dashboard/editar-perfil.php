@@ -12,16 +12,19 @@
         <input type="hidden" name="iduser" id="iduser" value="<?php echo $usersInfo->ID; ?>">
 
         <div class="row mb-3">
-            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Perfil de Imagen</label>
+            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagen de Perfil</label>
             <div class="col-md-8 col-lg-9 form-input-edit">
                 <img class="img-thumbnail rounded-circle" id="image" src="<?= PERFIL ?>/<?php echo $usersInfo->FotoPerfil; ?>" style="width:80px; height:80px; object-fit:cover;" alt="Profile">
                 <div class="pt-2">
-                    <label for="img-perfil" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></label>
-                    <button id="borrar" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></button>
+                    <label for="img-perfil" class="btn btn-primary btn-sm" title="Subir una nueva imagen de perfil"><i class="bi bi-upload"></i></label>
+                    <button id="borrar" class="btn btn-danger btn-sm" title="Remover mi imagen de perfil"><i class="bi bi-trash"></i></button>
                     <input class="d-none" type="file" name="img-perfil" id="img-perfil">
                     <div id="msgFile" class=""></div>
                     <p class="text-wrap text-success" style="font-size: .8em;">
                         * La extensión del archivo debe ser .jpeg/.jpg/.png/.gif.
+                    </p>
+                    <p class="text-wrap text-success" style="font-size: .8em;">
+                        * El tamaño del archivo debe ser de 4M.
                     </p>
                 </div>
             </div>
@@ -48,16 +51,16 @@
         <div class="row mb-3">
             <div class="col-md-12 col-lg-12">
                 <label class="col-form-label">Sector de Trabajo:</label>
-                <select class="form-select" name="rol" aria-label="Default select example">
+                <select class="form-select" name="sector" aria-label="Default select example">
                     <?php if (empty($usersInfo->Lugar)) : ?>
                         <option selected value="">Seleccione el Sector</option>
                         <?php foreach ($infoSector as $sector) : ?>
                             <option value="<?= $sector->ID; ?>"><?= $sector->Lugar; ?></option>
                         <?php endforeach ?>
                     <?php else : ?>
-                        <option selected value="<?php echo $usersInfo->Lugar; ?>"><?php echo $usersInfo->Lugar; ?></option>
+                        <option selected value="<?php echo $usersInfo->IdLugar; ?>"><?php echo $usersInfo->Lugar; ?></option>
                         <?php foreach ($infoSector as $sector) : ?>
-                            <option value="<?= $sector->Lugar; ?>"><?= $sector->Lugar; ?></option>
+                            <option value="<?= $sector->ID; ?>"><?= $sector->Lugar; ?></option>
                         <?php endforeach ?>
                     <?php endif; ?>
                 </select>
@@ -71,7 +74,7 @@
                 <input name="phone" type="text" class="form-control border-primary-subtle" id="phone" value="<?= $usersInfo->Telefono; ?>">
                 <div id="msgTel" class="col-md-8 col-lg-9"></div>
                 <p class="text-wrap text-success" style="font-size: .8em;">
-                    * El Telefono(celular) solamente debe contener digitos.
+                    * El Telefono(celular) +54297*****.
                 </p>
             </div>
         </div>
@@ -112,6 +115,7 @@
 
 
         <!-- Errores de servidor -->
+        <?php if($_SESSION["login"]): ?>
         <div class="col-12">
             <div id="userErr"></div>
             <div id="passErr"></div>
@@ -119,6 +123,7 @@
                 <?php echo Alertas::mostrarAlerta(); ?>
             </div>
         </div>
+        <?php endif; ?>
 
 
 

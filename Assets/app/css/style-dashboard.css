@@ -17,6 +17,8 @@ body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
   color: #444444;
+  position: absolute;
+  width: 100%;
 }
 
 a {
@@ -55,7 +57,9 @@ h6 {
   width: 100%!important;
 }
 }
-
+.btn-edit{
+  background-color: rgb(71, 181, 90) !important;
+}
 /*--------------------------------------------------------------
 # Page Title
 --------------------------------------------------------------*/
@@ -1198,3 +1202,44 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+/*--------------------------------------------------------------
+# Elemento carga de la pagina
+--------------------------------------------------------------*/
+
+#contenedor_carga{
+  background-color: rgba(250, 240, 245, 0.9);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+  z-index: 100000;
+}
+#carga{
+  border: 15px solid #ccc;
+  border-top-color: #f4266a;
+  border-top-style: groove;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+
+  -webkit-animation: girar 1.5s linear infinite ;
+  -o-animation: girar 1.5s linear infinite ;
+  -moz-animation: girar 1.5s linear infinite ;
+  animation: girar 1.5s linear infinite;
+
+}
+
+@keyframes girar {
+  from {transform: rotate(0deg);}
+  to{ transform: rotate(360deg);}
+}
+

@@ -154,16 +154,6 @@ let msgInsta = document.getElementById("msgInsta");
 
 let timeout_edit = null;
 
-let errors_edit = {
-    image: true,
-    nombre: true,
-    apellido: true,
-    phone: true,
-    email: true,
-    facebook: true,
-    instagram: true,
-}
-
 document.querySelectorAll(".form-input-edit").forEach((box) => {
     const boxInput = box.querySelector("input");
     const img_file = document.getElementById("img-perfil");
@@ -205,27 +195,113 @@ document.querySelectorAll(".form-input-edit").forEach((box) => {
 });
 
 validation_edit = (box, boxInput) => {
-
-    /*if (boxInput.name == "img-perfil") {
-
+    if (boxInput.name == "nombre") {
+        
         if (boxInput.value == '') {
             boxInput.classList.add('is-invalid');
-            msgFile.classList.remove('valid-feedback');
-            msgFile.classList.add('invalid-feedback');
-            msgFile.innerHTML = 'Por favor ingrese una imagen.';
-            errors_edit[boxInput.name] = true;
+            msgNombre.classList.remove('valid-feedback');
+            msgNombre.classList.add('invalid-feedback');
+            msgNombre.innerHTML = 'Por favor ingrese un nombre.';
+            
         }else {
             boxInput.classList.remove('is-invalid');
             boxInput.classList.add('is-valid');
-            msgFile.classList.remove('invalid-feedback');
-            msgFile.classList.add('valid-feedback');
-            msgFile.innerHTML = 'Excelente!';
-            errors[boxInput.name] = false;
+            msgNombre.classList.remove('invalid-feedback');
+            msgNombre.classList.add('valid-feedback');
+            msgNombre.innerHTML = 'Excelente!';
+            
         }
-    }*/
+    }
+    if (boxInput.name == "apellido") {
+
+        if (boxInput.value == '') {
+            boxInput.classList.add('is-invalid');
+            msgApellido.classList.remove('valid-feedback');
+            msgApellido.classList.add('invalid-feedback');
+            msgApellido.innerHTML = 'Por favor ingrese un apellido.';
+            
+        }else {
+            boxInput.classList.remove('is-invalid');
+            boxInput.classList.add('is-valid');
+            msgApellido.classList.remove('invalid-feedback');
+            msgApellido.classList.add('valid-feedback');
+            msgApellido.innerHTML = 'Excelente!';
+            
+        }
+    }
+    if (boxInput.name == "phone") {
+
+        if (boxInput.value == '') {
+            boxInput.classList.add('is-invalid');
+            msgTel.classList.remove('valid-feedback');
+            msgTel.classList.add('invalid-feedback');
+            msgTel.innerHTML = 'Por favor ingrese un telefono.';
+            
+        }else {
+            boxInput.classList.remove('is-invalid');
+            boxInput.classList.add('is-valid');
+            msgTel.classList.remove('invalid-feedback');
+            msgTel.classList.add('valid-feedback');
+            msgTel.innerHTML = 'Excelente!';
+            
+        }
+    }
+
+    if (boxInput.name == "email") {
+
+        if (boxInput.value == '') {
+            boxInput.classList.add('is-invalid');
+            msgEmail.classList.remove('valid-feedback');
+            msgEmail.classList.add('invalid-feedback');
+            msgEmail.innerHTML = 'Por favor ingrese un email.';
+            
+        }else {
+            boxInput.classList.remove('is-invalid');
+            boxInput.classList.add('is-valid');
+            msgEmail.classList.remove('invalid-feedback');
+            msgEmail.classList.add('valid-feedback');
+            msgEmail.innerHTML = 'Excelente!';
+           
+        }
+    }
+    
+    if (boxInput.name == "facebook") {
+        
+        if (boxInput.value == '') {
+            boxInput.classList.add('is-invalid');
+            msgFace.classList.remove('valid-feedback');
+            msgFace.classList.add('invalid-feedback');
+            msgFace.innerHTML = 'Por favor ingrese un link facebook.';
+            
+        }else {
+            boxInput.classList.remove('is-invalid');
+            boxInput.classList.add('is-valid');
+            msgFace.classList.remove('invalid-feedback');
+            msgFace.classList.add('valid-feedback');
+            msgFace.innerHTML = 'Excelente!';   
+        }
+    }
+
+    if (boxInput.name == "instagram") {
+
+        if (boxInput.value == '') {
+            boxInput.classList.add('is-invalid');
+            msgInsta.classList.remove('valid-feedback');
+            msgInsta.classList.add('invalid-feedback');
+            msgInsta.innerHTML = 'Por favor ingrese una link de instagram.';
+            
+        }else {
+            boxInput.classList.remove('is-invalid');
+            boxInput.classList.add('is-valid');
+            msgInsta.classList.remove('invalid-feedback');
+            msgInsta.classList.add('valid-feedback');
+            msgInsta.innerHTML = 'Excelente!';
+           
+        }
+    }
+
+
 }
-
-
 
 
 

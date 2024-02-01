@@ -122,9 +122,33 @@ function to_obj($array)
 function limpiar($str)
 {
 	$datos = trim($str);//elimina los epacios en un string
-	$datos = htmlspecialchars($datos,ENT_QUOTES);
-	$datos = utf8_decode($datos);
-	return addslashes($datos);
+	$datos = stripcslashes($datos);
+	$datos = str_ireplace("<script>","",$datos);
+	$datos = str_ireplace("</script>","",$datos);
+	$datos = str_ireplace("<script src=>","",$datos);
+	$datos = str_ireplace("<script type=>","",$datos);
+	$datos = str_ireplace("SELECT * FROM","",$datos);
+	$datos = str_ireplace("DELETE FROM","",$datos);
+	$datos = str_ireplace("INSERT INTO","",$datos);
+	$datos = str_ireplace("DROP TABLE","",$datos);
+	$datos = str_ireplace("OR","",$datos);
+	$datos = str_ireplace("DROP DATABASE","",$datos);
+	$datos = str_ireplace("TRUNCATE TABLE","",$datos);
+	$datos = str_ireplace("SHOW TABLES","",$datos);
+	$datos = str_ireplace("SHOW DATABASES","",$datos);
+	$datos = str_ireplace("<?php","",$datos);
+	$datos = str_ireplace("?>","",$datos);
+	$datos = str_ireplace("--","",$datos);
+	$datos = str_ireplace("^","",$datos);
+	$datos = str_ireplace("<","",$datos);
+	$datos = str_ireplace("[","",$datos);
+	$datos = str_ireplace("]","",$datos);
+	$datos = str_ireplace("==","",$datos);
+	$datos = str_ireplace("^","",$datos);
+	$datos = str_ireplace("::","",$datos);
+	$datos = trim($datos);
+	$datos = stripcslashes($datos);
+	return $datos;
 }
 /* ###### 
 #########  Funcion que devuelve la fecha actual ##########
@@ -132,4 +156,13 @@ function limpiar($str)
 function now() 
 {
 	return date('Y-m-d H:i:s');
+}
+
+/* ###### 
+#########  funcion para renombrar imagenes ##########
+##### */
+function renombrar_img($nombre_imagen)
+{
+	$remplazo = substr(sha1(rand(1,999)),0,-30).'_'.$nombre_imagen;
+	return $remplazo;
 }

@@ -36,13 +36,17 @@ class Usuario_Dashboard extends Controllers
 		if (Permisos::read()) {
 
 			$roles = Usuario_DashboardModel::roles();
+			$sectores = Usuario_DashboardModel::sectores();
+			
 			$data['roles'] = to_obj($roles);
+			$data['sectores'] = to_obj($sectores);
 			$data["page_principal"] = "Usuario";
 			$data["page_name"] = "Nuevo";
 			$data["page_title"] = "Usuario - Nuevo";
 			$data['function_js'] = "Usuario.js";
 			$this->Views->getView($this, 'nuevo', $data);
 		} else {
+			Alertas::warning("Usted no tiene permiso para realizar esta acción");
 			header('Location:' . base_url . '/Usuario_Dashboard');
 		}
 	}
@@ -62,7 +66,7 @@ class Usuario_Dashboard extends Controllers
 				$data['roles'] = to_obj($roles);
 				$data["page_principal"] = "Usuario";
 				$data["page_name"] = "Editar";
-				$data["page_title"] = "Editando usuario " . $usuario["NombreUser"];
+				$data["page_title"] = "Editando usuario " . $usuario["Nombre"];
 				$data['function_js'] = "Usuario.js";
 				$this->Views->getView($this, 'editar', $data);
 			}
@@ -83,6 +87,7 @@ class Usuario_Dashboard extends Controllers
 
 						$val = new Validations();
 						$val->name('rol')->value(limpiar($_POST['rol']))->required();
+						$val->name('sector')->value(limpiar($_POST['sector']))->required();
 						$val->name('correo')->value(limpiar($_POST['correo']))->pattern('email')->required();
 						$val->name('contraseña')->value(limpiar($_POST['password']))->min(6)->max(100)->equal(limpiar($_POST['re-password']))->required();
 						$val->name('estado')->value(limpiar($_POST['is_activo']))->required();
@@ -94,6 +99,7 @@ class Usuario_Dashboard extends Controllers
 							$passhash = password_hash($password, PASSWORD_DEFAULT);
 							$data = [
 								"ID_Rol" => limpiar($_POST["rol"]),
+								"ID_Sector" => limpiar($_POST["sector"]),
 								"Correo" => limpiar($_POST["correo"]),
 								"Password" => $passhash,
 								"is_activo" => limpiar($_POST["is_activo"])
@@ -114,6 +120,8 @@ class Usuario_Dashboard extends Controllers
 					header("location:" . base_url . "/Usuario_Dashboard/nuevo");
 				}
 			} else {
+
+				$userPass = Usuario_DashboardModel::oneUser($_POST["id"]);
 				//actualizar
 				if (Permisos::updater()) {
 
@@ -128,11 +136,18 @@ class Usuario_Dashboard extends Controllers
 
 						$passhash = password_hash($password, PASSWORD_DEFAULT);
 
+						//verifica si se cambio o no el password el formulario actualizar 
+						if(password_verify($userPass["Password"],$passhash) == true){
+							$pass_actual = $userPass["Password"];
+						}else{
+							$pass_actual = $passhash;
+						}
+
 						if ($val->isSuccess()) {
 							$data = [
 								"ID_Rol" => limpiar($_POST["rol"]),
 								"Correo" => limpiar($_POST["correo"]),
-								"Password" => $passhash,
+								"Password" => $pass_actual,
 								"is_activo" => limpiar($_POST["is_activo"])
 							];
 							$save = Usuario_DashboardModel::updateUser($data, $_POST["id"]);

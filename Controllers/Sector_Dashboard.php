@@ -65,7 +65,7 @@ class Sector_Dashboard extends Controllers
 			$data['function_js'] = "Sector.js";
 			$this->Views->getView($this, 'nuevo', $data);
 		} else {
-
+			Alertas::warning("Usted no tiene permiso para realizar esta acción");
 			header('Location:' . base_url . '/Sector_Dashboard');
 		}
 	}
@@ -145,7 +145,7 @@ class Sector_Dashboard extends Controllers
 						$id = Sanitations::san_entero($_POST['id']);
 
 						$val = new Validations();
-						$val->name('nombre')->value($_POST['nombre'])->max(100)->required();
+						$val->name('nombre')->value(limpiar($_POST['nombre']))->max(100)->required();
 						$val->name('calle')->value(limpiar($_POST['calle']))->pattern('dir2')->required();
 						$val->name('altura')->value(limpiar($_POST['altura']))->pattern('int');
 

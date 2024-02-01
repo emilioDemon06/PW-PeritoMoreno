@@ -22,15 +22,18 @@
                             <a class="btn btn-primary" href="<?= base_url ?>/Sector_Dashboard/nuevo" role="button"><?= SITE_ICON_NEW ?>Nuevo Sector</a>
                         <?php endif; ?>
 
+                        <?php if($_SESSION["login"]): ?>
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-2">
-                                    <?= Alertas::mostrarAlerta(); ?>
-                                    <div id="resp"></div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-2">
+                                <?= Alertas::mostrarAlerta(); ?>
+                                <div id="resp">
 
                                 </div>
                             </div>
+                            </div>
                         </div>
+                        <?php endif; ?>
 
 
                         <!-- Table with stripped rows -->
@@ -52,8 +55,8 @@
                                         <td><?php echo $sector->Calle; ?></td>
                                         <td><?php echo $sector->Altura; ?></td>
                                         <td>
-                                            <a type='button' class='editarfnt btn btn-warning btn-sm me-1' href="<?= base_url ?>/Sector_Dashboard/editar/<?= $sector->ID; ?>">Editar</a>
-                                            <button id="SectorData" data-idsector='<?= $sector->ID; ?>' data-namesector='<?= $sector->Lugar; ?>' type='button' class='btn btn-danger btn-sm' onclick="eliminarFnt(this)" >Eliminar</button>
+                                            <a type='button' class='editarfnt btn btn-sm me-1 btn-edit text-light' href="<?= base_url ?>/Sector_Dashboard/editar/<?= $sector->ID; ?>" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Editar"><?php echo ICON_EDITAR; ?></a>
+                                            <button id="SectorData" data-idsector='<?= $sector->ID; ?>' data-namesector='<?= $sector->Lugar; ?>' type='button' class='btn btn-danger btn-sm' onclick="eliminarFnt(this)" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Eliminar"><?php echo ICON_ELIMINAR; ?></button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

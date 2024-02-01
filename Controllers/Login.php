@@ -112,6 +112,8 @@ class Login extends Controllers
 				} else {
 
 					$_SESSION['iduser'] = $usuario['ID'];
+					$_SESSION['idRolUser'] = $usuario['ID_Rol'];
+					$_SESSION['idSectorUser'] = $usuario['ID_Sector'];
 					$_SESSION['nombre'] = $usuario['Nombre'];
 					$_SESSION['apellido'] = $usuario['Apellido'];
 					$_SESSION['correo'] = $usuario['Correo'];

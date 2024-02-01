@@ -79,6 +79,7 @@
                       <p class="text-center small">Recuerde que solamente tiene 3 intentos fallidos.</p>
                     </div>
                     
+                    
                     <div class="col-12">
                       <div id="userErr"></div>
                       <div id="passErr"></div>
@@ -89,6 +90,8 @@
                         <?php echo Alertas::mostrarAlerta(); ?> 
                       </div>
                     </div>
+                    
+
                     <div class="col-12">
                       <button id="submit-btn" class="btn btn-primary w-100" type="submit">Entrar</button>
                     </div>

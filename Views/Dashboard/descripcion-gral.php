@@ -1,4 +1,6 @@
 <div class="tab-pane fade show active profile-overview" id="profile-overview">
+    
+
     <h5 class="card-title">detalles del perfil</h5>
     
     <div class="row">

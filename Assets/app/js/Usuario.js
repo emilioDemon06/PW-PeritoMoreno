@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			{data:"Correo"},
 			{data:"is_activo"},
 			{
-				defaultContent: "<button type='button' class='editarfnt btn btn-warning btn-sm me-1' >Editar</button><button type='button' class='eliminarfnt btn btn-danger btn-sm'>Eliminar</button>"
+				defaultContent: "<button type='button' class='editarfnt btn btn-sm me-1 btn-edit text-light' title='Editar'><i class='bi bi-pencil-square'></i></button><button type='button' class='eliminarfnt btn btn-danger btn-sm' title='Eliminar'><i class='bi bi-trash'></i></button>"
 			},
 			
 		],

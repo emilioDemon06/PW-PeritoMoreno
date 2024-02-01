@@ -20,7 +20,7 @@
           <div class="card">
             <div class="card-body profile-card pt-2 d-flex flex-column align-items-center">
 
-              <img src="<?= PERFIL ?>/<?php echo $usersInfo->FotoPerfil; ?>" alt="Profile" class="rounded-circle" style="width:50%; height:50%; objetc-fit:cover;">
+              <img src="<?= PERFIL ?>/<?php echo $usersInfo->FotoPerfil; ?>" alt="Profile" class="rounded-circle" style="width:150px; height:150px; object-fit:cover;">
               <h5><?= $usersInfo->Nombre; ?> <?= $usersInfo->Apellido; ?></h5>
               <h3><?= $usersInfo->NombreRol ;?></h3>
               <div class="social-links mt-2">
@@ -43,9 +43,15 @@
 
           <div class="card">
             <div class="card-body pt-3">
+              <?php if($_SESSION["login"]): ?>
+              <div id="resp">
+                <?php echo Alertas::mostrarAlerta(); ?>
+              </div>
+              <?php endif; ?>
               <!-- Bordered Tabs -->
               <ul class="nav nav-tabs nav-tabs-bordered">
 
+                  
                 <li class="nav-item">
                   <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Descripción general</button>
                 </li>
@@ -61,7 +67,6 @@
 
               </ul>
               <div class="tab-content pt-2">
-                
                 <!-- Descripción general -->
                 <?php require "descripcion-gral.php"; ?>
 

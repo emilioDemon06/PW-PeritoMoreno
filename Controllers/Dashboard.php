@@ -38,24 +38,90 @@ class Dashboard extends Controllers
 			{
 				$userEdit = DashboardModel::oneUser($idUser);
 				
+				
+				
+				$imgNombre_actual = "";
+				$tmp_name = "";
+				$url_target = "";
+				
+
 				$vali = new Validations();
-				$vali->name("nombre")->value(limpiar($_POST["nombre"]))->pattern('text')->required();
-				$vali->name("apellido")->value(limpiar($_POST['apellido']))->pattern('text')->required();
-				$vali->name("lugar de trabajo")->value(limpiar($_POST['job']))->pattern('alphanum')->required();
-				$vali->name("dirección de trabajo")->value(limpiar($_POST['country']))->pattern('text')->required();
+				$vali->name("nombre")->value(limpiar($_POST["nombre"]))->required();
+				$vali->name("apellido")->value(limpiar($_POST['apellido']))->required();
+				$vali->name("sector de trabajo")->value(limpiar($_POST['sector']))->required();
 				$vali->name("telefono")->value(limpiar($_POST['phone']))->pattern('telefono')->required();
 				$vali->name("email")->value(limpiar($_POST['email']))->email()->required();
-				$vali->name("facebook")->value($_POST['facebook'])->url()->required();
-				$vali->name("instagram")->value($_POST['instagram'])->url()->required();
-
+				
+				//puede ser que esten vacios los campos
+				if (!empty($_POST["facebook"])) {
+					$vali->name("facebook")->value($_POST['facebook'])->url();
+				}elseif(!empty($_POST["instagram"])){
+					$vali->name("instagram")->value($_POST['instagram'])->url();
+				}
+				
+				
 				if ($vali->isSuccess()) 
 				{
-					Alertas::success("Se ha actualizado los datos correctamente");
-					header("location:" . base_url . "/Dashboard");
+					if($_FILES["img-perfil"]["name"] != null){
+						
+						$imgSize = $_FILES["img-perfil"]["size"];
+						$urlInsert = "Assets\img\perfil";
+						$imgNombre = $_FILES["img-perfil"]["name"];
+						$url_target = str_replace("\\","/",$urlInsert);				
+						
+						$imgNombre_actual =  renombrar_img($_FILES["img-perfil"]["name"]);
+						$tmp_name = $_FILES["img-perfil"]["tmp_name"];
+						$imagen = strtolower(pathinfo($imgNombre,PATHINFO_EXTENSION));
+
+						if($imagen !== "jpg" && $imagen !== "jpeg" && $imagen !== "png" && $imagen !== "gif"){
+							Alertas::danger("Solo se permiten imágenes tipo JPG, JPEG, PNG & GIF");
+						} elseif ($imgSize > 4000000) {
+							Alertas::danger("El archivo es muy pesado");
+						}else{
+							
+							$data = [
+								"ID_Sector" => limpiar($_POST["sector"]),
+								"Nombre" => limpiar($_POST["nombre"]),
+								"Apellido" => limpiar($_POST["apellido"]),
+								"FotoPerfil" => limpiar($imgNombre_actual),
+								"Telefono" => limpiar($_POST["phone"]),
+								"Correo" => limpiar($_POST["email"]),
+								"Facebook" => limpiar($_POST["facebook"]),
+								"Instagram" => limpiar($_POST["instagram"]),
+							];
+							$save = DashboardModel::updateUser($data,$idUser);
+							unlink($url_target."/".$_SESSION["fotoPerfil"]);
+							if(move_uploaded_file($tmp_name, "$url_target/$imgNombre_actual")){
+								
+								$_SESSION["fotoPerfil"] = $imgNombre_actual;
+								Alertas::success("Se ha actualizado los datos correctamente");
+								header("location:" . base_url . "/Dashboard");
+							}
+							$_SESSION["nombre"] = $_POST["nombre"];
+							$_SESSION["apellido"] = $_POST["apellido"];
+						}
+
+					}else{
+						$data = [
+							"ID_Sector" => limpiar($_POST["sector"]),
+							"Nombre" => limpiar($_POST["nombre"]),
+							"Apellido" => limpiar($_POST["apellido"]),
+							"Telefono" => limpiar($_POST["phone"]),
+							"Correo" => limpiar($_POST["email"]),
+							"Facebook" => limpiar($_POST["facebook"]),
+							"Instagram" => limpiar($_POST["instagram"]),
+						];
+						$save = DashboardModel::updateUser($data,$idUser);
+						Alertas::success("Se ha actualizado los datos correctamente");
+						header("location:" . base_url . "/Dashboard");
+						$_SESSION["nombre"] = $_POST["nombre"];
+						$_SESSION["apellido"] = $_POST["apellido"];
+					}
 				}else {
 					Alertas::danger($vali->getErrors());
 					header("location:" . base_url . "/Dashboard");
 				}
+
 
 			}catch(Exception $e)
 			{
